@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Анастасия Суховерхова](https://up.htmlacademy.ru/react/11/user/4433).
-* Наставник: `Неизвестно`.
+* Наставник: [Rail Sakhaviev](https://htmlacademy.ru/profile/id1331891).
 
 ---
 
