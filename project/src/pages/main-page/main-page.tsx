@@ -1,6 +1,10 @@
 import CityItem from '../../components/city-item/city-item';
 
-function MainPage(): JSX.Element {
+type MainPageProps = {
+  citiesCount: number;
+}
+
+function MainPage({citiesCount}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -74,7 +78,7 @@ function MainPage(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{citiesCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span tabIndex={0} className="places__sorting-type">

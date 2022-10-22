@@ -1,8 +1,12 @@
 import MainPage from '../../pages/main-page/main-page';
 
-function App(): JSX.Element {
+type AppScreenProps = {
+  citiesCount: number;
+}
+
+function App({citiesCount}: AppScreenProps): JSX.Element {
   return (
-    <MainPage />
+    <MainPage citiesCount={citiesCount} />
   );
 }
 
