@@ -1,10 +1,10 @@
 import MainPage from '../../pages/main-page/main-page';
 
-type AppScreenProps = {
+type Props = {
   citiesCount: number;
 }
 
-function App({citiesCount}: AppScreenProps): JSX.Element {
+function App({citiesCount}: Props): JSX.Element {
   return (
     <MainPage citiesCount={citiesCount} />
   );
