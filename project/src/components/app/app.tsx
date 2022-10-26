@@ -28,7 +28,7 @@ function App({citiesCount}: Props): JSX.Element {
           }
         />
         <Route
-          path={AppRoute.Room}
+          path={`${AppRoute.Room}/:id`}
           element={<RoomPage />}
         />
         <Route
