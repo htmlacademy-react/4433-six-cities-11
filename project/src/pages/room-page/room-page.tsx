@@ -1,8 +1,13 @@
+import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 
 function RoomPage(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>Room</title>
+      </Helmet>
+
       <Header />
 
       <main className="page__main page__main--property">

@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet-async';
 import CityItem from '../../components/city-item/city-item';
 import Header from '../../components/header/header';
 
@@ -8,6 +9,10 @@ type MainPageProps = {
 function MainPage({citiesCount}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Main</title>
+      </Helmet>
+
       <Header />
 
       <main className="page__main page__main--index">

@@ -1,8 +1,13 @@
+import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 
 function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
+
       <Header />
 
       <main className="page__main page__main--login">
