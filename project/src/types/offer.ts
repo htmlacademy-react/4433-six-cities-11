@@ -1,4 +1,10 @@
-export type OfferItem = {
+export type OfferPrice = {
+  value: number;
+  currency: string;
+  period: string;
+}
+
+export type OfferItemType = {
   id: string;
   name: string;
   type: string;
@@ -6,11 +12,7 @@ export type OfferItem = {
   isBookmarked: boolean;
   isPremium: boolean;
   src: string;
-  price: {
-    value: number;
-    currency: string;
-    period: string;
-  };
+  price: OfferPrice;
 };
 
-export type Offers = OfferItem[];
+export type Offers = OfferItemType[];
