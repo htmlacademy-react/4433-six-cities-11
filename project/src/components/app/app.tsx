@@ -7,12 +7,14 @@ import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
+import {Offers} from '../../types/offer';
 
 type Props = {
   citiesCount: number;
+  offers: Offers;
 }
 
-function App({citiesCount}: Props): JSX.Element {
+function App({citiesCount, offers}: Props): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>

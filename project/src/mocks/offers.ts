@@ -1,6 +1,6 @@
-import {OfferItem} from '../types/offer';
+import {Offers} from '../types/offer';
 
-export const questions: OfferItem[] = [
+export const offers: Offers = [
   {
     id: '1',
     name: 'Beautiful & luxurious apartment at great location',

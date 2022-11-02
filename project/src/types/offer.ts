@@ -12,3 +12,5 @@ export type OfferItem = {
     period: string;
   };
 };
+
+export type Offers = OfferItem[];
