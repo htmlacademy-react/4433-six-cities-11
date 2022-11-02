@@ -1,5 +1,5 @@
 import {Helmet} from 'react-helmet-async';
-import CityItem from '../../components/city-item/city-item';
+import OfferItem from '../../components/offer-item/offer-item';
 import Header from '../../components/header/header';
 
 type MainPageProps = {
@@ -74,11 +74,11 @@ function MainPage({citiesCount}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CityItem />
-                <CityItem />
-                <CityItem />
-                <CityItem />
-                <CityItem />
+                <OfferItem />
+                <OfferItem />
+                <OfferItem />
+                <OfferItem />
+                <OfferItem />
               </div>
             </section>
             <div className="cities__right-section">
