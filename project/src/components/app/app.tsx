@@ -21,7 +21,7 @@ function App({citiesCount, offers}: Props): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage citiesCount={citiesCount} />}
+            element={<MainPage citiesCount={citiesCount} offers={offers} />}
           />
           <Route
             path={AppRoute.Favorites}

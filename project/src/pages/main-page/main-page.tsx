@@ -1,12 +1,14 @@
 import {Helmet} from 'react-helmet-async';
-import OfferItem from '../../components/offer-item/offer-item';
+import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
+import {Offers} from '../../types/offer';
 
-type MainPageProps = {
+type Props = {
   citiesCount: number;
+  offers: Offers;
 }
 
-function MainPage({citiesCount}: MainPageProps): JSX.Element {
+function MainPage({citiesCount, offers}: Props): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -74,11 +76,7 @@ function MainPage({citiesCount}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferItem />
-                <OfferItem />
-                <OfferItem />
-                <OfferItem />
-                <OfferItem />
+                <OfferList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">

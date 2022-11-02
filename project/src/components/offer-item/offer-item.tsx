@@ -5,10 +5,9 @@ const MAX_RAITING = 5;
 
 type Props = {
   offer: OfferItemType;
-}
+};
 
-function OfferItem(props: Props): JSX.Element {
-  const {offer} = props;
+function OfferItem({offer}: Props): JSX.Element {
   const offerPrice: OfferPrice = offer.price;
 
   function calcRaitingStyle(raitingValue: number) {
