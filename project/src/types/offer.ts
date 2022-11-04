@@ -12,6 +12,7 @@ export type OfferItemType = {
   isBookmarked: boolean;
   isPremium: boolean;
   src: string;
+  city: string;
   price: OfferPrice;
 };
 

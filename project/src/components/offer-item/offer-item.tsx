@@ -10,23 +10,27 @@ type Props = {
 function OfferItem({offer}: Props): JSX.Element {
   const offerPrice: OfferPrice = offer.price;
 
+  const offerType = offer.isBookmarked ? 'favorites' : 'cities';
+  const previewWidth = offer.isBookmarked ? '150' : '260';
+  const previewHeight = offer.isBookmarked ? '110' : '200';
+
   function calcRaitingStyle(raitingValue: number) {
-    const raitingWidth = 100 * MAX_RAITING / raitingValue;
+    const raitingWidth = 100 * raitingValue / MAX_RAITING;
 
     return raitingWidth;
   }
 
   return(
-    <article className="cities__card place-card">
+    <article className={`${offerType}__card place-card`}>
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${offerType}__image-wrapper place-card__image-wrapper`}>
         <a href="#todo">
-          <img className="place-card__image" src={offer.src} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.src} width={previewWidth} height={previewHeight} alt="Place image" />
         </a>
       </div>
 
-      <div className="place-card__info">
+      <div className={`${offer.isBookmarked ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{offerPrice.currency}{offerPrice.value}</b>
@@ -42,7 +46,7 @@ function OfferItem({offer}: Props): JSX.Element {
 
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: calcRaitingStyle(offer.raiting) }}></span>
+            <span style={{ width: `${calcRaitingStyle(offer.raiting)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

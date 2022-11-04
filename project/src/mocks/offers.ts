@@ -9,6 +9,7 @@ export const offers: Offers = [
     isBookmarked: false,
     isPremium: false,
     src: 'img/apartment-01.jpg',
+    city: 'Amsterdam',
     price: {
       value: 120,
       currency: '€',
@@ -22,6 +23,7 @@ export const offers: Offers = [
     isBookmarked: true,
     isPremium: false,
     src: 'img/room.jpg',
+    city: 'Paris',
     price: {
       value: 80,
       currency: '€',
@@ -35,6 +37,7 @@ export const offers: Offers = [
     isBookmarked: true,
     isPremium: false,
     src: 'img/apartment-02.jpg',
+    city: 'Paris',
     price: {
       value: 132,
       currency: '€',
@@ -48,6 +51,7 @@ export const offers: Offers = [
     isBookmarked: false,
     isPremium: true,
     src: 'img/apartment-03.jpg',
+    city: 'Brussels',
     price: {
       value: 180,
       currency: '€',
