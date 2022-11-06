@@ -166,7 +166,9 @@ function RoomPage({offers}: Props): JSX.Element {
                     </div>
                   </li>
                 </ul>
+
                 <ReviewAdditioForm />
+
               </section>
             </div>
           </div>

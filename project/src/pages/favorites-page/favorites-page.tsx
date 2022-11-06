@@ -6,7 +6,6 @@ import {Offers} from '../../types/offer';
 import Footer from '../../components/footer/footer';
 import OfferItem from '../../components/offer-item/offer-item';
 
-
 type Props = {
   offers: Offers;
 }
@@ -48,7 +47,13 @@ function FavoritesPage({offers}: Props): JSX.Element {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      <OfferItem offer={offer} />
+                      <OfferItem
+                        offer={offer}
+                        className="favorites__card"
+                        imageWrapperClassName="favorites__image-wrapper"
+                        imageWidth={150}
+                        imageHeight={110}
+                      />
                     </div>
                   </li>
               )}

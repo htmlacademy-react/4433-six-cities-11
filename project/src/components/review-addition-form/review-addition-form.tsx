@@ -6,19 +6,9 @@ function ReviewAdditioForm(): JSX.Element {
     review: '',
   });
 
-  let prevFormData = formData;
-
-  const fieldChangeHandle = (evt: ChangeEvent<HTMLTextAreaElement>| ChangeEvent<HTMLInputElement>) => {
-    const {name, value, type} = evt.target;
+  const fieldChangeHandle = (evt: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
-
-    if (type === 'radio') {
-      setFormData({...prevFormData, rating: value});
-    } else {
-      setFormData({...formData, [name]: value});
-    }
-
-    prevFormData = formData;
   };
 
   return(

@@ -5,14 +5,14 @@ import {OfferPrice} from '../../types/offer';
 
 type Props = {
   offer: OfferItemType;
+  className?: string;
+  imageWrapperClassName?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 };
 
-function OfferItem({offer}: Props): JSX.Element {
+function OfferItem({offer, className = 'cities__card', imageWrapperClassName = 'cities__image-wrapper', imageWidth = 260, imageHeight = 200}: Props): JSX.Element {
   const offerPrice: OfferPrice = offer.price;
-
-  const offerType = offer.isBookmarked ? 'favorites' : 'cities';
-  const previewWidth = offer.isBookmarked ? '150' : '260';
-  const previewHeight = offer.isBookmarked ? '110' : '200';
 
   function calcRaitingStyle(raitingValue: number) {
     const raitingWidth = 100 * raitingValue / MAX_RAITING;
@@ -21,12 +21,12 @@ function OfferItem({offer}: Props): JSX.Element {
   }
 
   return(
-    <article className={`${offerType}__card place-card`}>
+    <article className={`place-card ${className}`}>
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
 
-      <div className={`${offerType}__image-wrapper place-card__image-wrapper`}>
+      <div className={`place-card__image-wrapper ${imageWrapperClassName}`}>
         <Link to={`${AppRoute.Room}/${offer.id}`}>
-          <img className="place-card__image" src={offer.src} width={previewWidth} height={previewHeight} alt="Place image" />
+          <img className="place-card__image" src={offer.src} width={imageWidth} height={imageHeight} alt="Place image" />
         </Link>
       </div>
 
