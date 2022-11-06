@@ -1,9 +1,7 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, MAX_RAITING} from '../../const';
 import {OfferItemType} from '../../types/offer';
 import {OfferPrice} from '../../types/offer';
-
-const MAX_RAITING = 5;
 
 type Props = {
   offer: OfferItemType;

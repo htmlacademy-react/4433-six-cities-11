@@ -26,15 +26,15 @@ function App({citiesCount, offers}: Props): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              // <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              //   <FavoritesPage offers={offers} />
-              // </PrivateRoute>
-              <FavoritesPage offers={offers} />
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <FavoritesPage offers={offers} />
+              </PrivateRoute>
+              // <FavoritesPage offers={offers} />
             }
           />
           <Route
             path={`${AppRoute.Room}/:id`}
-            element={<RoomPage />}
+            element={<RoomPage offers={offers} />}
           />
           <Route
             path={AppRoute.Login}
