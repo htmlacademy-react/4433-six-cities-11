@@ -2,8 +2,10 @@ import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
-import OfferItem from '../../components/offer-item/offer-item';
 import {Offers} from '../../types/offer';
+import Footer from '../../components/footer/footer';
+import OfferItem from '../../components/offer-item/offer-item';
+
 
 type Props = {
   offers: Offers;
@@ -54,11 +56,7 @@ function FavoritesPage({offers}: Props): JSX.Element {
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
-      </footer>
+      <Footer />
     </div>
   );
 }
