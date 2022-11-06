@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 import {OfferItemType} from '../../types/offer';
 import {OfferPrice} from '../../types/offer';
 
@@ -25,9 +27,9 @@ function OfferItem({offer}: Props): JSX.Element {
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
 
       <div className={`${offerType}__image-wrapper place-card__image-wrapper`}>
-        <a href="#todo">
+        <Link to={`${AppRoute.Room}/${offer.id}`}>
           <img className="place-card__image" src={offer.src} width={previewWidth} height={previewHeight} alt="Place image" />
-        </a>
+        </Link>
       </div>
 
       <div className={`${offer.isBookmarked ? 'favorites__card-info' : ''} place-card__info`}>
@@ -52,7 +54,7 @@ function OfferItem({offer}: Props): JSX.Element {
         </div>
 
         <h2 className="place-card__name">
-          <a href="#todo">{offer.name}</a>
+          <Link to={`${AppRoute.Room}/${offer.id}`}>{offer.name}</Link>
         </h2>
 
         <p className="place-card__type">{offer.type}</p>

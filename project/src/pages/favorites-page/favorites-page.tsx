@@ -1,3 +1,5 @@
+import {AppRoute} from '../../const';
+import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import OfferItem from '../../components/offer-item/offer-item';
@@ -38,9 +40,9 @@ function FavoritesPage({offers}: Props): JSX.Element {
               {getFavoritesOffersArray().map((offer) => <li className="favorites__locations-items" key={offer.id}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <a className="locations__item-link" href="#todo">
+                        <Link className="locations__item-link" to={`${AppRoute.Room}/${offer.id}`}>
                           <span>{offer.city}</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="favorites__places">

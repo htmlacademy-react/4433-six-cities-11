@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
@@ -23,34 +24,34 @@ function MainPage({citiesCount, offers}: Props): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link className="locations__item-link tabs__item tabs__item--active" to="#todo">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
