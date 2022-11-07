@@ -1,4 +1,5 @@
-import {Offers} from '../types/offer';
+import {Offers, OffersGrouppedByCity} from '../types/offer';
+import {getOffersGrouppedByCity} from '../util';
 
 export const offers: Offers = [
   {
@@ -401,3 +402,5 @@ export const offers: Offers = [
     id: 7
   }
 ];
+
+export const offersGrouppedByCity: OffersGrouppedByCity = getOffersGrouppedByCity(offers);

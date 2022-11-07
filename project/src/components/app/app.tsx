@@ -7,14 +7,15 @@ import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import {Offers} from '../../types/offer';
+import {Offers, OffersGrouppedByCity} from '../../types/offer';
 
 type Props = {
   citiesCount: number;
   offers: Offers;
+  offersGrouppedByCity: OffersGrouppedByCity;
 }
 
-function App({citiesCount, offers}: Props): JSX.Element {
+function App({citiesCount, offers, offersGrouppedByCity}: Props): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,7 +30,7 @@ function App({citiesCount, offers}: Props): JSX.Element {
               // <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
               //   <FavoritesPage offers={offers} />
               // </PrivateRoute>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage offersGrouppedByCity={offersGrouppedByCity} />
             }
           />
           <Route
