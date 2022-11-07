@@ -10,7 +10,7 @@ type Props = {
 
 function RoomPage({offers}: Props): JSX.Element {
   const params = useParams();
-  const offerId = params.id;
+  const offerId = Number(params.id);
 
   const currentOffer: OfferItemType | undefined = offers.find((el) => el.id === offerId);
 
@@ -52,7 +52,7 @@ function RoomPage({offers}: Props): JSX.Element {
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {currentOffer?.name}
+                  {currentOffer?.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">

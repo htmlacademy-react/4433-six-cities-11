@@ -1,19 +1,38 @@
-export type OfferPrice = {
-  value: number;
-  currency: string;
-  period: string;
+export type OfferCity = {
+  name: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
 }
 
 export type OfferItemType = {
-  id: string;
-  name: string;
-  type: string;
-  raiting: number;
-  isBookmarked: boolean;
+  city: OfferCity;
+  previewImage: string;
+  images: string[];
+  title: string;
+  isFavorite: boolean;
   isPremium: boolean;
-  src: string;
-  city: string;
-  price: OfferPrice;
+  rating: number;
+  type: string;
+  bedrooms: number;
+  maxAdults: number;
+  price: number;
+  goods: string[];
+  host: {
+    id: number;
+    name: string;
+    isPro: boolean;
+    avatarUrl: string;
+  };
+  description: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  id: number;
 };
 
 export type Offers = OfferItemType[];

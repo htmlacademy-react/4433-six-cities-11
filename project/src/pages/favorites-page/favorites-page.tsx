@@ -15,7 +15,7 @@ function FavoritesPage({offers}: Props): JSX.Element {
     const bookmatedOffersArray: Offers = [];
 
     offers.map((offer) => {
-      if (offer.isBookmarked) {
+      if (offer.isFavorite) {
         bookmatedOffersArray.push(offer);
       }
 
@@ -42,7 +42,7 @@ function FavoritesPage({offers}: Props): JSX.Element {
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <Link className="locations__item-link" to={`${AppRoute.Room}/${offer.id}`}>
-                          <span>{offer.city}</span>
+                          <span>{offer.city.name}</span>
                         </Link>
                       </div>
                     </div>
