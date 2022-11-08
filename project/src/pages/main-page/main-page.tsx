@@ -1,12 +1,15 @@
+import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import CityItem from '../../components/city-item/city-item';
+import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
+import {Offers} from '../../types/offer';
 
-type MainPageProps = {
+type Props = {
   citiesCount: number;
+  offers: Offers;
 }
 
-function MainPage({citiesCount}: MainPageProps): JSX.Element {
+function MainPage({citiesCount, offers}: Props): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -21,34 +24,34 @@ function MainPage({citiesCount}: MainPageProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link className="locations__item-link tabs__item tabs__item--active" to="#todo">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
+                <Link className="locations__item-link tabs__item" to="#todo">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -74,11 +77,7 @@ function MainPage({citiesCount}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CityItem />
-                <CityItem />
-                <CityItem />
-                <CityItem />
-                <CityItem />
+                <OfferList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">

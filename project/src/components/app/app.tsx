@@ -7,31 +7,34 @@ import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
+import {Offers, OffersGrouppedByCity} from '../../types/offer';
 
 type Props = {
   citiesCount: number;
+  offers: Offers;
+  offersGrouppedByCity: OffersGrouppedByCity;
 }
 
-function App({citiesCount}: Props): JSX.Element {
+function App({citiesCount, offers, offersGrouppedByCity}: Props): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage citiesCount={citiesCount} />}
+            element={<MainPage citiesCount={citiesCount} offers={offers} />}
           />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesPage />
+                <FavoritesPage offersGrouppedByCity={offersGrouppedByCity} />
               </PrivateRoute>
             }
           />
           <Route
             path={`${AppRoute.Room}/:id`}
-            element={<RoomPage />}
+            element={<RoomPage offers={offers} />}
           />
           <Route
             path={AppRoute.Login}
