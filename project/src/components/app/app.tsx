@@ -27,10 +27,9 @@ function App({citiesCount, offers, offersGrouppedByCity}: Props): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              // <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              //   <FavoritesPage offers={offers} />
-              // </PrivateRoute>
-              <FavoritesPage offersGrouppedByCity={offersGrouppedByCity} />
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <FavoritesPage offersGrouppedByCity={offersGrouppedByCity} />
+              </PrivateRoute>
             }
           />
           <Route

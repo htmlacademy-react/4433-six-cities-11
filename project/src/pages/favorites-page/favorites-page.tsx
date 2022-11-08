@@ -2,44 +2,16 @@ import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
-import {Offers, OffersGrouppedByCity} from '../../types/offer';
+import {OffersGrouppedByCity} from '../../types/offer';
 import Footer from '../../components/footer/footer';
 import OfferItem from '../../components/offer-item/offer-item';
-import OfferList from '../../components/offer-list/offer-list';
 
 type Props = {
   offersGrouppedByCity: OffersGrouppedByCity;
 }
 
 function FavoritesPage({offersGrouppedByCity}: Props): JSX.Element {
-  function getOfferElement (offers: OffersGrouppedByCity) {
-    const result: string[] = [];
-
-    for(const city in offers){
-      result.push(`
-        <li className="favorites__locations-items">${city}</li>
-          <div className="favorites__locations locations locations--current">
-            <div className="locations__item">
-              <Link className="locations__item-link" to={${AppRoute.Room}/${city}}>
-                <span>${city}</span>
-              </Link>
-            </div>
-          </div>
-          <div className="favorites__places">
-            ${getOfferOfCity(city)}
-          </div>
-        </li>
-      `);
-    }
-
-    return result.join('');
-  }
-
-  function getOfferOfCity (city: string) {
-    const offers: Offers = offersGrouppedByCity[city];
-
-    return <OfferList offers={offers} />;
-  }
+  const offersGrouppedByCityArray = Object.entries(offersGrouppedByCity);
 
   return (
     <div className="page">
@@ -54,7 +26,20 @@ function FavoritesPage({offersGrouppedByCity}: Props): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              { getOfferElement(offersGrouppedByCity) }
+              {offersGrouppedByCityArray.map(([city, offers]) => (
+                <li className="favorites__locations-items" key={city}>
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <Link className="locations__item-link" to={`${AppRoute.Room}/${city}`}>
+                        <span>{city}</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="favorites__places">
+                    {offers.map((offer) => <OfferItem key={offer.id} offer={offer} className="favorites__card" imageWrapperClassName="favorites__image-wrapper" imageWidth={150} imageHeight={110} /> )}
+                  </div>
+                </li>
+              ))}
             </ul>
           </section>
         </div>
