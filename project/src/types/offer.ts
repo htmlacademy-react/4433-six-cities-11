@@ -38,7 +38,3 @@ export type OfferItemType = {
 export type Offers = OfferItemType[];
 
 export type OffersGrouppedByCity = Record<string, Offers>;
-
-// export type OffersGrouppedByCity = [{
-//   [index: string]: Offers;
-// }];
