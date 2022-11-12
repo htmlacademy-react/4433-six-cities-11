@@ -7,7 +7,7 @@ export const getOffersGrouppedByCity = (offers: Offers) => {
 
   cities.forEach((city: string) => {
     offers.forEach((offer: OfferItemType) => {
-      if (offer.isFavorite && offer.city.name === city) {
+      if (offer.city.name === city) {
         offersForCity.push(offer);
       }
     });
@@ -22,7 +22,7 @@ export const getOffersGrouppedByCity = (offers: Offers) => {
 };
 
 
-const getCitiesArray = (offers: Offers) => {
+export const getCitiesArray = (offers: Offers) => {
   const cities: string[] = [];
 
   offers.forEach((el) => {
