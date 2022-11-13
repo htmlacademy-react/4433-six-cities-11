@@ -1,9 +1,10 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, MAX_RAITING} from '../../const';
-import {OfferItemType} from '../../types/offer';
+import {AppRoute} from '../../const';
+import {calcRaitingStyle} from '../../util';
+import {Offer} from '../../types/offer';
 
 type Props = {
-  offer: OfferItemType;
+  offer: Offer;
   className?: string;
   imageWrapperClassName?: string;
   imageWidth?: number;
@@ -11,12 +12,6 @@ type Props = {
 };
 
 function OfferItem({offer, className = 'cities__card', imageWrapperClassName = 'cities__image-wrapper', imageWidth = 260, imageHeight = 200}: Props): JSX.Element {
-  function calcRaitingStyle(raitingValue: number) {
-    const raitingWidth = 100 * raitingValue / MAX_RAITING;
-
-    return raitingWidth;
-  }
-
   return(
     <article className={`place-card ${className}`}>
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}

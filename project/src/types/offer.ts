@@ -7,7 +7,7 @@ export type OfferCity = {
   };
 }
 
-export type OfferItemType = {
+export type Offer = {
   city: OfferCity;
   previewImage: string;
   images: string[];
@@ -35,6 +35,4 @@ export type OfferItemType = {
   id: number;
 };
 
-export type Offers = OfferItemType[];
-
-export type OffersGrouppedByCity = Record<string, Offers>;
+export type OffersGrouppedByCity = Record<string, Offer[]>;

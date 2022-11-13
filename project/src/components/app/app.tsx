@@ -7,11 +7,11 @@ import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import {Offers, OffersGrouppedByCity} from '../../types/offer';
+import {Offer, OffersGrouppedByCity} from '../../types/offer';
 
 type Props = {
   cities: string[];
-  offers: Offers;
+  offers: Offer[];
   offersGrouppedByCity: OffersGrouppedByCity;
 }
 

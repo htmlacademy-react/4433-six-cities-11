@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Offers, OffersGrouppedByCity} from '../../types/offer';
+import {Offer, OffersGrouppedByCity} from '../../types/offer';
 import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
@@ -15,7 +15,7 @@ function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
   const [currentCity, setCurrentCity] = useState<string | undefined>('Amsterdam');
   const [isOfferListHidden, setOfferListHidden] = useState<boolean>(false);
 
-  let currentCityOffers: Offers = getCurrentCityOffers(currentCity);
+  let currentCityOffers: Offer[] = getCurrentCityOffers(currentCity);
 
   const onCityClick = (cityName: string) => {
     setCurrentCity(cityName);

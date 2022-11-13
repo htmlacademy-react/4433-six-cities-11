@@ -1,14 +1,14 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {Offers} from '../../types/offer';
+import {Offer} from '../../types/offer';
 import {getCityLocation} from '../../util';
 import {URL_MARKER_DEFAULT} from '../../const';
 import useMap from '../../hooks/useMap/useMap';
 
 type Props = {
   city: string | undefined;
-  currentCityOffers: Offers;
+  currentCityOffers: Offer[];
 }
 
 const defaultCustomIcon = new Icon({
