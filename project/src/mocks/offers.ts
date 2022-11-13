@@ -1,4 +1,5 @@
 import {Offer, OffersGrouppedByCity} from '../types/offer';
+import {Review} from '../types/review';
 import {getOffersGrouppedByCity} from '../util';
 
 export const offers: Offer[] = [
@@ -404,3 +405,42 @@ export const offers: Offer[] = [
 ];
 
 export const offersGrouppedByCity: OffersGrouppedByCity = getOffersGrouppedByCity(offers);
+
+export const Reviews: Review[] = [
+  {
+    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+    date: 'Sat Nov 12 2022 19:38:29 GMT+0300 (Москва, стандартное время)',
+    id: 1,
+    rating: 4,
+    user: {
+      avatarUrl: 'img/1.png',
+      id: 1,
+      isPro: true,
+      name: 'Max',
+    }
+  },
+  {
+    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+    date: 'Sat Nov 12 2022 19:38:29 GMT+0300 (Москва, стандартное время)',
+    id: 4,
+    rating: 4,
+    user: {
+      avatarUrl: 'img/1.png',
+      id: 1,
+      isPro: true,
+      name: 'Max',
+    }
+  },
+  {
+    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+    date: 'Sat Nov 12 2022 19:38:29 GMT+0300 (Москва, стандартное время)',
+    id: 4,
+    rating: 4,
+    user: {
+      avatarUrl: 'img/1.png',
+      id: 1,
+      isPro: true,
+      name: 'Max',
+    }
+  }
+];

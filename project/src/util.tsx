@@ -1,4 +1,5 @@
 import {Offer, OffersGrouppedByCity} from './types/offer';
+import {Review} from './types/review';
 import {CityLocation} from './types/city';
 import {MAX_RATING} from './const';
 
@@ -50,3 +51,15 @@ export const getCityLocation = (city: string | undefined, offers: Offer[]) => {
 export function calcRaitingStyle(raitingValue: number) {
   return 100 * raitingValue / MAX_RATING;
 }
+
+export const getReviewsOfCurrentOffer = (offerId: number, reviews: Review[]) => {
+  const reviewsOfCurrentOffer: Review[] = [];
+
+  reviews.forEach((review: Review) => {
+    if (review.id === offerId) {
+      reviewsOfCurrentOffer.push(review);
+    }
+  });
+
+  return reviewsOfCurrentOffer;
+};
