@@ -7,22 +7,22 @@ import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import {Offers, OffersGrouppedByCity} from '../../types/offer';
+import {Offer, OffersGrouppedByCity} from '../../types/offer';
 
 type Props = {
-  citiesCount: number;
-  offers: Offers;
+  cities: string[];
+  offers: Offer[];
   offersGrouppedByCity: OffersGrouppedByCity;
 }
 
-function App({citiesCount, offers, offersGrouppedByCity}: Props): JSX.Element {
+function App({cities, offers, offersGrouppedByCity}: Props): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage citiesCount={citiesCount} offers={offers} />}
+            element={<MainPage cities={cities} offersGrouppedByCity={offersGrouppedByCity}/>}
           />
           <Route
             path={AppRoute.Favorites}

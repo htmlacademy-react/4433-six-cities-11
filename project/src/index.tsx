@@ -2,11 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {offers, offersGrouppedByCity} from './mocks/offers';
+import {getCitiesArray} from './util';
 
-const Setting = {
-  CitiesCount: 5,
-} as const;
-
+const cities = getCitiesArray(offers);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -15,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      citiesCount = {Setting.CitiesCount}
+      cities = {cities}
       offers = {offers}
       offersGrouppedByCity = {offersGrouppedByCity}
     />

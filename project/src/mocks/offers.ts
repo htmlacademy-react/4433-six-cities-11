@@ -1,7 +1,7 @@
-import {Offers, OffersGrouppedByCity} from '../types/offer';
+import {Offer, OffersGrouppedByCity} from '../types/offer';
 import {getOffersGrouppedByCity} from '../util';
 
-export const offers: Offers = [
+export const offers: Offer[] = [
   {
     city: {
       name: 'Amsterdam',

@@ -1,18 +1,23 @@
 import {Helmet} from 'react-helmet-async';
 import {useParams} from 'react-router-dom';
-import {Offers, OfferItemType} from '../../types/offer';
+import {Offer} from '../../types/offer';
 import Header from '../../components/header/header';
 import ReviewAdditioForm from '../../components/review-addition-form/review-addition-form';
+import {calcRaitingStyle} from '../../util';
 
 type Props = {
-  offers: Offers;
+  offers: Offer[];
 };
 
 function RoomPage({offers}: Props): JSX.Element {
   const params = useParams();
   const offerId = Number(params.id);
 
-  const currentOffer: OfferItemType | undefined = offers.find((el) => el.id === offerId);
+  const currentOffer = offers.find((el) => el.id === offerId);
+
+  if(!currentOffer) {
+    return <div>Loading</div>;
+  }
 
   return (
     <div className="page">
@@ -26,80 +31,73 @@ function RoomPage({offers}: Props): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
+              {currentOffer.images.map((imageSrc) => (
+                <div className="property__image-wrapper" key={imageSrc}>
+                  <img className="property__image" src={imageSrc} alt="Photo studio" />
+                </div>
+              ))}
             </div>
           </div>
+
           <div className="property__container container">
             <div className="property__wrapper">
-              {currentOffer?.isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
+              {currentOffer.isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {currentOffer?.title}
+                  {currentOffer.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className="visually-hidden">${currentOffer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
                 </button>
               </div>
+
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{ width: `${calcRaitingStyle(currentOffer.rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{currentOffer.rating}</span>
               </div>
+
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {currentOffer?.type}
+                  {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {currentOffer?.bedrooms} Bedrooms
+                  {currentOffer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {currentOffer?.maxAdults} adults
+                  Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
+
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{currentOffer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
+
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {currentOffer?.goods.map((good: string) => <li className="property__inside-item" key={good}>{good}</li> )}
+                  {currentOffer.goods.map((good: string) => <li className="property__inside-item" key={good}>{good}</li> )}
                 </ul>
               </div>
+
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={currentOffer?.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={currentOffer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
-                  <span className="property__user-name">{currentOffer?.host.name}</span>
-                  {currentOffer?.host.isPro ? <span className="property__user-status">Pro</span> : ''}
+                  <span className="property__user-name">{currentOffer.host.name}</span>
+                  {currentOffer.host.isPro ? <span className="property__user-status">Pro</span> : ''}
                 </div>
                 <div className="property__description">
-                  <p className="property__text">{currentOffer?.description}</p>
+                  <p className="property__text">{currentOffer.description}</p>
                 </div>
               </div>
 

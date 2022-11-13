@@ -1,8 +1,8 @@
 import OfferItem from '../offer-item/offer-item';
-import {Offers} from '../../types/offer';
+import {Offer} from '../../types/offer';
 
 type Props = {
-  offers: Offers;
+  offers: Offer[];
 };
 
 function OfferList(props: Props): JSX.Element {
