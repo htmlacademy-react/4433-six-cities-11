@@ -15,17 +15,13 @@ function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
   const [currentCity, setCurrentCity] = useState<string | undefined>('Amsterdam');
   const [isOfferListHidden, setOfferListHidden] = useState<boolean>(false);
 
-  let currentCityOffers: Offer[] = getCurrentCityOffers(currentCity);
+  let currentCityOffers: Offer[] = currentCity ? offersGrouppedByCity[currentCity] : [];
 
   const onCityClick = (cityName: string) => {
     setCurrentCity(cityName);
-    currentCityOffers = getCurrentCityOffers(cityName);
+    currentCityOffers = cityName ? offersGrouppedByCity[cityName] : [];
     setOfferListHidden(currentCityOffers.length <= 0);
   };
-
-  function getCurrentCityOffers(cityName: string | undefined) {
-    return cityName ? offersGrouppedByCity[cityName] : [];
-  }
 
   return (
     <div className="page page--gray page--main">

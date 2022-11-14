@@ -8,7 +8,7 @@ import ReviewAdditioForm from '../../components/review-addition-form/review-addi
 import {Reviews, nearsOffers} from '../../mocks/offers';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
-import {calcRaitingStyle, getReviewsOfCurrentOffer} from '../../util';
+import {calcRatingStyle, getReviewsOfCurrentOffer} from '../../util';
 
 type Props = {
   offers: Offer[];
@@ -64,7 +64,7 @@ function RoomPage({offers}: Props): JSX.Element {
 
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: `${calcRaitingStyle(currentOffer.rating)}%` }}></span>
+                  <span style={{ width: `${calcRatingStyle(currentOffer.rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{currentOffer.rating}</span>
