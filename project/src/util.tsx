@@ -1,4 +1,5 @@
 import {Offer, OffersGrouppedByCity} from './types/offer';
+import {Review} from './types/review';
 import {CityLocation} from './types/city';
 import {MAX_RATING} from './const';
 
@@ -36,17 +37,25 @@ export const getCitiesArray = (offers: Offer[]) => {
   return cities;
 };
 
-export const getCityLocation = (city: string | undefined, offers: Offer[]) => {
-  const cityLocation: CityLocation = {
-    title: city ? city : '',
-    latitude: offers[0].city.location.latitude,
-    longitude: offers[0].city.location.longitude,
-    zoom: offers[0].city.location.zoom
-  };
+export const getCityLocation = (city: string | undefined, offers: Offer[]): CityLocation => ({
+  title: city ? city : '',
+  latitude: offers[0].city.location.latitude,
+  longitude: offers[0].city.location.longitude,
+  zoom: offers[0].city.location.zoom
+});
 
-  return cityLocation;
-};
-
-export function calcRaitingStyle(raitingValue: number) {
-  return 100 * raitingValue / MAX_RATING;
+export function calcRatingStyle(ratingValue: number) {
+  return 100 * ratingValue / MAX_RATING;
 }
+
+export const getReviewsOfCurrentOffer = (offerId: number, reviews: Review[]) => {
+  const reviewsOfCurrentOffer: Review[] = [];
+
+  reviews.forEach((review: Review) => {
+    if (review.id === offerId) {
+      reviewsOfCurrentOffer.push(review);
+    }
+  });
+
+  return reviewsOfCurrentOffer;
+};

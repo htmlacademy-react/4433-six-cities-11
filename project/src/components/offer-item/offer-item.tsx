@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {calcRaitingStyle} from '../../util';
+import {calcRatingStyle} from '../../util';
 import {Offer} from '../../types/offer';
 
 type Props = {
@@ -38,7 +38,7 @@ function OfferItem({offer, className = 'cities__card', imageWrapperClassName = '
 
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${calcRaitingStyle(offer.rating)}%` }}></span>
+            <span style={{ width: `${calcRatingStyle(offer.rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
