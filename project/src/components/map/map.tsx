@@ -2,8 +2,8 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Offer} from '../../types/offer';
-import {getCityLocation} from '../../util';
-import {URL_MARKER_DEFAULT} from '../../const';
+import {Location} from '../../types/city';
+import {URL_MARKER_DEFAULT, CITIES} from '../../const';
 import useMap from '../../hooks/useMap/useMap';
 
 type Props = {
@@ -19,10 +19,11 @@ const defaultCustomIcon = new Icon({
 
 function Map({city, currentCityOffers}: Props): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, getCityLocation(city, currentCityOffers));
+  const cityLocation: Location = city ? CITIES[city] : undefined;
+  const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
-    if (map) {
+    if (map && cityLocation) {
       currentCityOffers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
