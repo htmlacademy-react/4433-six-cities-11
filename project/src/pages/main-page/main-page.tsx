@@ -12,7 +12,7 @@ type Props = {
 }
 
 function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
-  const [currentCity, setCurrentCity] = useState<string | undefined>('Amsterdam');
+  const [currentCity, setCurrentCity] = useState<string>('Amsterdam');
   const [isOfferListHidden, setOfferListHidden] = useState<boolean>(false);
 
   let currentCityOffers: Offer[] = currentCity ? offersGrouppedByCity[currentCity] : [];
@@ -37,6 +37,7 @@ function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
         <div className="tabs">
           <CitiesList
             cities={cities}
+            currentCity={currentCity}
             onCityClick={onCityClick}
           />
         </div>
