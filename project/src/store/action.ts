@@ -3,8 +3,8 @@ import { offers } from '../mocks/offers';
 
 const setCity = createAction('main/setCity', (city: string) => ({ payload: city }));
 
-const setOffersOfCity = createAction('main/setOffersOfCity',
+const setOffersByCity = createAction('main/setOffersByCity',
   (city: string) => ({ payload: offers.filter((offer) => offer.city.name === city) })
 );
 
-export {setCity, setOffersOfCity};
+export {setCity, setOffersByCity};

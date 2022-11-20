@@ -22,7 +22,7 @@ function App({cities, offers, offersGrouppedByCity}: Props): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage cities={cities} offersGrouppedByCity={offersGrouppedByCity}/>}
+            element={<MainPage cities={cities} offers={offers}/>}
           />
           <Route
             path={AppRoute.Favorites}

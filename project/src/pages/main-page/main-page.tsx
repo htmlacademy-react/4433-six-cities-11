@@ -1,27 +1,27 @@
-import {useState} from 'react';
+import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Offer, OffersGrouppedByCity} from '../../types/offer';
+import {Offer} from '../../types/offer';
 import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import CitiesList from '../../components/cities-list/cities-list';
 
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setOffersByCity } from '../../store/action';
+
 type Props = {
   cities: string[];
-  offersGrouppedByCity: OffersGrouppedByCity;
+  offers: Offer[];
 }
 
-function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
-  const [currentCity, setCurrentCity] = useState<string>('Amsterdam');
-  const [isOfferListHidden, setOfferListHidden] = useState<boolean>(false);
+function MainPage({cities, offers}: Props): JSX.Element {
+  const dispatch = useAppDispatch();
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const offersByCity = useAppSelector((state) => state.offers);
 
-  let currentCityOffers: Offer[] = currentCity ? offersGrouppedByCity[currentCity] : [];
-
-  const onCityClick = (cityName: string) => {
-    setCurrentCity(cityName);
-    currentCityOffers = cityName ? offersGrouppedByCity[cityName] : [];
-    setOfferListHidden(currentCityOffers.length <= 0);
-  };
+  useEffect(() => {
+    dispatch(setOffersByCity(currentCity));
+  }, [dispatch, offers, currentCity]);
 
   return (
     <div className="page page--gray page--main">
@@ -35,11 +35,7 @@ function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
 
         <div className="tabs">
-          <CitiesList
-            cities={cities}
-            currentCity={currentCity}
-            onCityClick={onCityClick}
-          />
+          <CitiesList currentCity={currentCity} cities={cities} />
         </div>
 
         <div className="cities">
@@ -48,7 +44,7 @@ function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
 
-              <b className="places__found">{cities.length} places to stay in {currentCity}</b>
+              <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
 
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -67,13 +63,13 @@ function MainPage({cities, offersGrouppedByCity}: Props): JSX.Element {
               </form>
 
               <div className="cities__places-list places__list tabs__content">
-                {isOfferListHidden ? 'Нет предложений' : <OfferList offers={currentCityOffers} /> }
+                <OfferList offers={offersByCity} />
               </div>
             </section>
 
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={currentCity} currentCityOffers={currentCityOffers} />
+                <Map city={currentCity} currentCityOffers={offersByCity} />
               </section>
             </div>
           </div>

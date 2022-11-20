@@ -8,10 +8,9 @@ import { setCity } from '../../store/action';
 type Props = {
   cities: string[];
   currentCity: string;
-  onCityClick: (cityName: string) => void;
 }
 
-function CitiesList({cities, currentCity, onCityClick}: Props): JSX.Element {
+function CitiesList({cities, currentCity}: Props): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -22,10 +21,8 @@ function CitiesList({cities, currentCity, onCityClick}: Props): JSX.Element {
     event.preventDefault();
 
     if (event.currentTarget.textContent) {
-      onCityClick(event.currentTarget.textContent);
+      dispatch(setCity(event.currentTarget.textContent));
     }
-
-    dispatch(setCity(currentCity));
   }
 
   return(
@@ -34,7 +31,7 @@ function CitiesList({cities, currentCity, onCityClick}: Props): JSX.Element {
         {cities.map((city) => (
           <li className="locations__item" key={city}>
             <Link
-              className="locations__item-link tabs__item"
+              className={`locations__item-link tabs__item ${currentCity === city ? 'tabs__item--active' : ''}`}
               to="#todo"
               onClick={handleCityClick}
             >
