@@ -7,8 +7,8 @@ import {URL_MARKER_DEFAULT, CITIES} from '../../const';
 import useMap from '../../hooks/useMap/useMap';
 
 type Props = {
-  city: string | undefined;
-  currentCityOffers: Offer[];
+  currentCity: string;
+  offersByCity: Offer[];
 }
 
 const defaultCustomIcon = new Icon({
@@ -17,14 +17,14 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({city, currentCityOffers}: Props): JSX.Element {
+function Map({currentCity, offersByCity}: Props): JSX.Element {
   const mapRef = useRef(null);
-  const cityLocation: Location | undefined = city ? CITIES['Amsterdam'] : undefined;
+  const cityLocation: Location = CITIES[currentCity];
   const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
     if (map && cityLocation) {
-      currentCityOffers.forEach((offer) => {
+      offersByCity.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -35,7 +35,7 @@ function Map({city, currentCityOffers}: Props): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, currentCityOffers]);
+  }, [map, offersByCity, cityLocation]);
 
   return <div style={{height: '100%'}} ref={mapRef}></div>;
 }

@@ -69,7 +69,7 @@ function MainPage({cities, offers}: Props): JSX.Element {
 
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={currentCity} currentCityOffers={offersByCity} />
+                <Map currentCity={currentCity} offersByCity={offersByCity} />
               </section>
             </div>
           </div>

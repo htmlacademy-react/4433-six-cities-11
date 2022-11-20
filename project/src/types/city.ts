@@ -4,6 +4,6 @@ export type Location = {
   zoom: number;
 }
 
-type CityName = 'Amsterdam' | 'Brussels' | 'Cologne' | 'Hamburg';
+export type CityName = 'Amsterdam' | 'Brussels' | 'Cologne' | 'Hamburg';
 
-export type City = Record<CityName, Location>;
+export type City = Record<string, Location>;
