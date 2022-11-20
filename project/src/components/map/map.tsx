@@ -19,8 +19,6 @@ function Map(): JSX.Element {
 
   const map = useMap(mapRef, currentCity);
 
-  // console.log(map?.getCenter());
-
   useEffect(() => {
     if (map) {
       offersByCity.forEach((offer) => {
@@ -32,6 +30,8 @@ function Map(): JSX.Element {
         marker
           .setIcon(defaultCustomIcon)
           .addTo(map);
+
+        map.flyTo({lat: offer.city.location.latitude, lng: offer.city.location.longitude});
       });
     }
   }, [map, offersByCity, currentCity]);

@@ -2,7 +2,6 @@ import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
 import {CITIES} from '../../const';
 import {Location} from '../../types/city';
-import {useAppSelector} from '../../hooks';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, currentCity: string): Map | null {
   const location: Location = CITIES[currentCity];
@@ -31,7 +30,6 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, currentCity: strin
       instance.addLayer(layer);
 
       setMap(instance);
-
       isRenderedRef.current = true;
     }
   }, [mapRef, map, location, currentCity]);
