@@ -65,10 +65,10 @@ export const offers: Offer[] = [
   },
   {
     city: {
-      name: 'Brussels',
+      name: 'Paris',
       location: {
-        latitude: 50.846557,
-        longitude: 4.351697,
+        latitude: 48.85661,
+        longitude: 2.351499,
         zoom: 13
       }
     },
@@ -116,8 +116,8 @@ export const offers: Offer[] = [
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     location: {
-      latitude: 50.844556999999995,
-      longitude: 4.346697,
+      latitude: 48.834610000000005,
+      longitude: 2.364499,
       zoom: 16
     },
     id: 2

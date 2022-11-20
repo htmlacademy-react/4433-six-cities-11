@@ -1,15 +1,9 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {Offer} from '../../types/offer';
-import {Location} from '../../types/city';
-import {URL_MARKER_DEFAULT, CITIES} from '../../const';
+import {URL_MARKER_DEFAULT} from '../../const';
 import useMap from '../../hooks/useMap/useMap';
-
-type Props = {
-  currentCity: string;
-  offersByCity: Offer[];
-}
+import {useAppSelector} from '../../hooks';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -17,13 +11,18 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({currentCity, offersByCity}: Props): JSX.Element {
+function Map(): JSX.Element {
   const mapRef = useRef(null);
-  const cityLocation: Location = CITIES[currentCity];
-  const map = useMap(mapRef, cityLocation);
+
+  const currentCity: string = useAppSelector((state) => state.currentCity);
+  const offersByCity = useAppSelector((state) => state.offers);
+
+  const map = useMap(mapRef, currentCity);
+
+  // console.log(map?.getCenter());
 
   useEffect(() => {
-    if (map && cityLocation) {
+    if (map) {
       offersByCity.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -35,7 +34,7 @@ function Map({currentCity, offersByCity}: Props): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offersByCity, cityLocation]);
+  }, [map, offersByCity, currentCity]);
 
   return <div style={{height: '100%'}} ref={mapRef}></div>;
 }
