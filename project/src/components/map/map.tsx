@@ -19,7 +19,7 @@ const defaultCustomIcon = new Icon({
 
 function Map({city, currentCityOffers}: Props): JSX.Element {
   const mapRef = useRef(null);
-  const cityLocation: Location = city ? CITIES[city] : undefined;
+  const cityLocation: Location | undefined = city ? CITIES['Amsterdam'] : undefined;
   const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
