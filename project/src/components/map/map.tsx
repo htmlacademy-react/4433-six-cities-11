@@ -1,5 +1,5 @@
 import {useRef, useEffect} from 'react';
-import {Icon, Marker} from 'leaflet';
+import {Icon, latLng, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_DEFAULT} from '../../const';
 import useMap from '../../hooks/useMap/useMap';
@@ -31,7 +31,7 @@ function Map(): JSX.Element {
           .setIcon(defaultCustomIcon)
           .addTo(map);
 
-        map.flyTo({lat: offer.city.location.latitude, lng: offer.city.location.longitude});
+        map.flyTo({lat: offer.city.location.latitude, lng: offer.city.location.longitude}, offer.city.location.zoom);
       });
     }
   }, [map, offersByCity, currentCity]);

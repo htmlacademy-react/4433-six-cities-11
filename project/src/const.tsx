@@ -13,6 +13,13 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum SortType {
+  Default = 'Popular',
+  PriceUp = 'Price: low to high',
+  PriceDown = 'Price: high to low',
+  Top = 'Top rated first',
+}
+
 export const MAX_RATING = 5;
 
 export const DEFAULT_CITY = 'Paris';
