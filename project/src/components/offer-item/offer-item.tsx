@@ -3,6 +3,9 @@ import {AppRoute} from '../../const';
 import {calcRatingStyle} from '../../util';
 import {Offer} from '../../types/offer';
 
+import {useAppDispatch} from '../../hooks';
+import {setSelectedOffer} from '../../store/action';
+
 type Props = {
   offer: Offer;
   className?: string;
@@ -12,8 +15,18 @@ type Props = {
 };
 
 function OfferItem({offer, className = 'cities__card', imageWrapperClassName = 'cities__image-wrapper', imageWidth = 260, imageHeight = 200}: Props): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  function handleHover(id: number) {
+    dispatch(setSelectedOffer(id));
+  }
+
   return(
-    <article className={`place-card ${className}`}>
+    <article
+      className={`place-card ${className}`}
+      onMouseOver={() => handleHover(offer.id)}
+      onMouseOut={() => dispatch(setSelectedOffer(0))}
+    >
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
 
       <div className={`place-card__image-wrapper ${imageWrapperClassName}`}>

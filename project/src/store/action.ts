@@ -11,6 +11,10 @@ const setOffersByCity = createAction('main/setOffersByCity',
   (city: string) => ({ payload: offers.filter((offer) => offer.city.name === city) })
 );
 
+const setSelectedOffer = createAction('main/setSelectedOffer',
+  (id: number) => ({ payload: id })
+);
+
 const setCurrentSortType = createAction('offers/sort',
   (currentSortType: SortType, offersByCity: Offer[]) => {
     switch(currentSortType) {
@@ -45,4 +49,4 @@ const setCurrentSortType = createAction('offers/sort',
     }
   });
 
-export {setCity, setOffersByCity, setCurrentSortType};
+export {setCity, setOffersByCity, setCurrentSortType, setSelectedOffer};
