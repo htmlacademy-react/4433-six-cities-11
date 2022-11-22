@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {offers, offersGrouppedByCity} from './mocks/offers';
 import {getCitiesArray} from './util';
+import {CITIES} from './const';
+import {store} from './store';
+import {Provider} from 'react-redux';
 
-const cities = getCitiesArray(offers);
+const cities = getCitiesArray(CITIES);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -12,10 +15,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      cities = {cities}
-      offers = {offers}
-      offersGrouppedByCity = {offersGrouppedByCity}
-    />
+    <Provider store = {store}>
+      <App
+        cities = {cities}
+        offers = {offers}
+        offersGrouppedByCity = {offersGrouppedByCity}
+      />
+    </Provider>
   </React.StrictMode>,
 );
