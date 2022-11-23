@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 
 function SortForm(): JSX.Element {
   const currentSortType = useAppSelector((state) => state.currentSortType);
-  const offers = useAppSelector((state) => state.offers);
+  const offersByCity = useAppSelector((state) => state.offersByCity);
   const dispatch = useAppDispatch();
 
   const [isActive, setActive] = useState<boolean>(false);
@@ -30,7 +30,7 @@ function SortForm(): JSX.Element {
             className={`places__option ${type === currentSortType ? 'places__option--active' : ''}`}
             key={type}
             tabIndex={0}
-            onClick={() => dispatch(setCurrentSortType(type, offers)) }
+            onClick={() => dispatch(setCurrentSortType(type, offersByCity)) }
           >
             {type}
           </li>

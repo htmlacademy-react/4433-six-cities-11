@@ -21,7 +21,7 @@ function Map(): JSX.Element {
   const mapRef = useRef(null);
 
   const currentCity: string = useAppSelector((state) => state.currentCity);
-  const offersByCity = useAppSelector((state) => state.offers);
+  const offersByCity = useAppSelector((state) => state.offersByCity);
   const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
 
   const map = useMap(mapRef, currentCity);

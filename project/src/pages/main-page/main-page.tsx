@@ -4,6 +4,7 @@ import {Offer} from '../../types/offer';
 import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
+import {SortType} from '../../const';
 import CitiesList from '../../components/cities-list/cities-list';
 import SortForm from '../../components/sort-form/sort-form';
 
@@ -18,7 +19,10 @@ type Props = {
 function MainPage({cities, offers}: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.currentCity);
-  const offersByCity = useAppSelector((state) => state.offers);
+  const offersByCity = useAppSelector((state) => state.offersByCity);
+
+  const defaultOffersByCity = offers.filter((offer) => offer.city.name === currentCity);
+  const currentSortType = useAppSelector((state) => state.currentSortType);
 
   useEffect(() => {
     dispatch(setOffersByCity(currentCity));
@@ -50,7 +54,7 @@ function MainPage({cities, offers}: Props): JSX.Element {
               <SortForm />
 
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={offersByCity} />
+                <OfferList offers={currentSortType === SortType.Default ? defaultOffersByCity : offersByCity} />
               </div>
             </section>
 

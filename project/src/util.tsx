@@ -1,6 +1,5 @@
 import {Offer, OffersGrouppedByCity} from './types/offer';
 import {Review} from './types/review';
-import {City} from './types/city';
 import {MAX_RATING} from './const';
 
 export const getOffersGrouppedByCity = (offers: Offer[]) => {
@@ -13,16 +12,6 @@ export const getOffersGrouppedByCity = (offers: Offer[]) => {
       result[offer.city.name] = [offer];
     }
   });
-
-  return result;
-};
-
-export const getCitiesArray = (cities: City) => {
-  const result: string[] = [];
-
-  for (const city in cities) {
-    result.push(city);
-  }
 
   return result;
 };
