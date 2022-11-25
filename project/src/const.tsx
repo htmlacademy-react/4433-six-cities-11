@@ -13,6 +13,12 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export enum SortType {
   Default = 'Popular',
   PriceUp = 'Price: low to high',
@@ -62,3 +68,5 @@ export const CITIES: CityLocation = {
     zoom: 13
   }
 };
+
+export const TIMEOUT_SHOW_ERROR = 2000;

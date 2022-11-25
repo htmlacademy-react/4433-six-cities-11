@@ -49,4 +49,10 @@ const setCurrentSortType = createAction('offers/sort',
     }
   });
 
+export const loadOffers = createAction<Offer[]>('data/loadOffers');
+
+export const setOffersLoadingStatus = createAction<boolean>('data/setOffersLoadingStatus');
+
+export const setError = createAction<string | null>('data/setError');
+
 export {setCity, setOffersByCity, setCurrentSortType, setSelectedOffer};
