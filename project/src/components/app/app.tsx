@@ -1,21 +1,26 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, CITIES} from '../../const';
+import {useAppSelector} from '../../hooks';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import {Offer, OffersGrouppedByCity} from '../../types/offer';
+import Loading from '../loading/loading';
+import {getOffersGrouppedByCity} from '../../util';
 
-type Props = {
-  cities: string[];
-  offers: Offer[];
-  offersGrouppedByCity: OffersGrouppedByCity;
-}
+function App(): JSX.Element {
+  const cities = Object.keys(CITIES);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const offers = useAppSelector((state) => state.offers);
+  const offersGrouppedByCity = getOffersGrouppedByCity(offers);
 
-function App({cities, offers, offersGrouppedByCity}: Props): JSX.Element {
+  if (isOffersLoading) {
+    return <Loading />;
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>

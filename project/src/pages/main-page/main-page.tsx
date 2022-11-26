@@ -25,7 +25,7 @@ function MainPage({cities, offers}: Props): JSX.Element {
   const currentSortType = useAppSelector((state) => state.currentSortType);
 
   useEffect(() => {
-    dispatch(setOffersByCity(currentCity));
+    dispatch(setOffersByCity(currentCity, offers));
   }, [dispatch, offers, currentCity]);
 
   return (
