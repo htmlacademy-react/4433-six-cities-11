@@ -1,6 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Offer} from '../types/offer';
-import {offers} from '../mocks/offers';
 import {SortType} from '../const';
 
 const setCity = createAction('main/setCity',
@@ -8,7 +7,7 @@ const setCity = createAction('main/setCity',
 );
 
 const setOffersByCity = createAction('main/setOffersByCity',
-  (city: string) => ({ payload: offers.filter((offer) => offer.city.name === city) })
+  (city: string, offers: Offer[]) => ({ payload: offers.filter((offer) => offer.city.name === city) })
 );
 
 const setSelectedOffer = createAction('main/setSelectedOffer',
