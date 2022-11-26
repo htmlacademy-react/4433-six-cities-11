@@ -1,9 +1,8 @@
-import {MouseEvent} from 'react';
-
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { setCity } from '../../store/action';
+import {MouseEvent, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {DEFAULT_CITY, SortType} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setCity, setCurrentSortType} from '../../store/action';
 
 type Props = {
   cities: string[];
@@ -12,17 +11,16 @@ type Props = {
 
 function CitiesList({cities, currentCity}: Props): JSX.Element {
   const dispatch = useAppDispatch();
+  const offersByCity = useAppSelector((state) => state.offersByCity);
 
   useEffect(() => {
-    dispatch(setCity(cities[0]));
+    dispatch(setCity(DEFAULT_CITY));
   }, [dispatch, cities]);
 
-  function handleCityClick (event: MouseEvent) {
+  function handleCityClick (event: MouseEvent, city: string) {
     event.preventDefault();
-
-    if (event.currentTarget.textContent) {
-      dispatch(setCity(event.currentTarget.textContent));
-    }
+    dispatch(setCity(city));
+    dispatch(setCurrentSortType(SortType.Default, offersByCity));
   }
 
   return(
@@ -33,7 +31,7 @@ function CitiesList({cities, currentCity}: Props): JSX.Element {
             <Link
               className={`locations__item-link tabs__item ${currentCity === city ? 'tabs__item--active' : ''}`}
               to="#todo"
-              onClick={handleCityClick}
+              onClick={(event) => handleCityClick(event, city)}
             >
               <span>{city}</span>
             </Link>

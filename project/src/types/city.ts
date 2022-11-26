@@ -6,4 +6,4 @@ export type Location = {
 
 export type CityName = 'Amsterdam' | 'Brussels' | 'Cologne' | 'Hamburg';
 
-export type City = Record<string, Location>;
+export type CityLocation = Record<string, Location>;

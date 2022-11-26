@@ -1,4 +1,4 @@
-import {City} from './types/city';
+import {CityLocation} from './types/city';
 
 export enum AppRoute {
   Favorites = '/favorites',
@@ -13,6 +13,13 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum SortType {
+  Default = 'Popular',
+  PriceUp = 'Price: low to high',
+  PriceDown = 'Price: high to low',
+  Top = 'Top rated first',
+}
+
 export const MAX_RATING = 5;
 
 export const DEFAULT_CITY = 'Paris';
@@ -23,7 +30,7 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
-export const CITIES: City = {
+export const CITIES: CityLocation = {
   Paris: {
     latitude: 48.85661,
     longitude: 2.351499,
