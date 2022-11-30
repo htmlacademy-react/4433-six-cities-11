@@ -7,27 +7,23 @@ import Map from '../../components/map/map';
 import ReviewList from '../../components/review-list/review-list';
 import ReviewAdditioForm from '../../components/review-addition-form/review-addition-form';
 import {nearsOffers} from '../../mocks/offers';
-import {Offer} from '../../types/offer';
 import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
-import {loadReviews} from '../../store/api-actions';
+import {loadReviews, loadOffer} from '../../store/api-actions';
 
-type Props = {
-  offers: Offer[];
-};
-
-function RoomPage({offers}: Props): JSX.Element {
+function RoomPage(): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offerId = Number(params.id);
-  const currentOffer = offers.find((el) => el.id === offerId);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
   const reviewsOfCurrentOffer = useAppSelector((state) => state.reviews);
 
   useEffect(() => {
+    dispatch(loadOffer(offerId));
     dispatch(loadReviews(offerId));
   }, [dispatch, offerId]);
 

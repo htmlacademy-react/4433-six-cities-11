@@ -3,7 +3,7 @@ import {DEFAULT_CITY, SortType, AuthorizationStatus} from '../const';
 import {Offer} from '../types/offer';
 import {UserData} from '../types/user-data';
 import {Review} from '../types/review';
-import {setCity, setOffersByCity, setCurrentSortType, setSelectedOffer, loadOffers, setOffersLoadingStatus, setError, requireAuthorization, setUserData, loadReviewsByOffer} from './action';
+import {setCity, setOffersByCity, setCurrentSortType, setSelectedOffer, loadOffers, setOffersLoadingStatus, setError, requireAuthorization, setUserData, loadReviewsByOffer, loadCurrentOffer} from './action';
 
 type InitalState = {
   currentCity: string;
@@ -16,6 +16,7 @@ type InitalState = {
   error: null | string;
   userData: null | UserData;
   reviews: Review[];
+  currentOffer: null | Offer;
 }
 
 const initialState: InitalState = {
@@ -28,7 +29,8 @@ const initialState: InitalState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   userData: null,
-  reviews: []
+  reviews: [],
+  currentOffer: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -63,6 +65,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadReviewsByOffer, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(loadCurrentOffer, (state, action) => {
+      state.currentOffer = action.payload;
     });
 });
 

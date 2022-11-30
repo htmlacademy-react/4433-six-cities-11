@@ -54,3 +54,5 @@ export const redirectToRoute = createAction<AppRoute>('site/redirectToRoute');
 export const setUserData = createAction<UserData>('site/setUserData');
 
 export const loadReviewsByOffer = createAction<Review[]>('data/loadReviewsByOffer');
+
+export const loadCurrentOffer = createAction<Offer>('data/loadCurrentOffer');
