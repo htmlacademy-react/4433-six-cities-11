@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Offer} from '../types/offer';
-import {SortType} from '../const';
+import {SortType, AuthorizationStatus, AppRoute} from '../const';
 
 const sortings = {
   [SortType.PriceUp]: (offerA: Offer, offerB: Offer) => offerA.price - offerB.price,
@@ -8,19 +8,19 @@ const sortings = {
   [SortType.Top]: (offerA: Offer, offerB: Offer) => offerB.rating - offerA.rating
 };
 
-const setCity = createAction('main/setCity',
+export const setCity = createAction('main/setCity',
   (city: string) => ({ payload: city })
 );
 
-const setOffersByCity = createAction('main/setOffersByCity',
+export const setOffersByCity = createAction('main/setOffersByCity',
   (city: string, offers: Offer[]) => ({ payload: offers.filter((offer) => offer.city.name === city) })
 );
 
-const setSelectedOffer = createAction('main/setSelectedOffer',
+export const setSelectedOffer = createAction('main/setSelectedOffer',
   (id: number) => ({ payload: id })
 );
 
-const setCurrentSortType = createAction('offers/sort',
+export const setCurrentSortType = createAction('offers/sort',
   (currentSortType: SortType, offersByCity: Offer[]) => {
     if (currentSortType === SortType.Default) {
       return {
@@ -45,4 +45,6 @@ export const setOffersLoadingStatus = createAction<boolean>('data/setOffersLoadi
 
 export const setError = createAction<string | null>('data/setError');
 
-export {setCity, setOffersByCity, setCurrentSortType, setSelectedOffer};
+export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+
+export const redirectToRoute = createAction<AppRoute>('site/redirectToRoute');
