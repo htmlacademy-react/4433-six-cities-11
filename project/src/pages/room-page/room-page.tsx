@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {useParams} from 'react-router-dom';
 import Header from '../../components/header/header';
@@ -5,30 +6,34 @@ import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import ReviewList from '../../components/review-list/review-list';
 import ReviewAdditioForm from '../../components/review-addition-form/review-addition-form';
-import {Reviews, nearsOffers} from '../../mocks/offers';
+import {nearsOffers} from '../../mocks/offers';
 import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
-import {calcRatingStyle, getReviewsOfCurrentOffer} from '../../util';
+import {useAppDispatch} from '../../hooks';
+import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
+import {loadReviews} from '../../store/api-actions';
 
 type Props = {
   offers: Offer[];
 };
 
 function RoomPage({offers}: Props): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
   const params = useParams();
-  const offerId = Number(params.id);
+  const dispatch = useAppDispatch();
 
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offerId = Number(params.id);
   const currentOffer = offers.find((el) => el.id === offerId);
+  const reviewsOfCurrentOffer = useAppSelector((state) => state.reviews);
+
+  useEffect(() => {
+    dispatch(loadReviews(offerId));
+  }, [dispatch, offerId]);
 
   if(!currentOffer) {
     return <div>Loading</div>;
   }
-
-  const reviewsOfCurrentOffer: Review[] = getReviewsOfCurrentOffer(currentOffer.id, Reviews);
 
   return (
     <div className="page">

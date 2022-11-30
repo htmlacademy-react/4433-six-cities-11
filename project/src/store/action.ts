@@ -1,6 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Offer} from '../types/offer';
 import {UserData} from '../types/user-data';
+import {Review} from '../types/review';
 import {SortType, AuthorizationStatus, AppRoute} from '../const';
 
 const sortings = {
@@ -51,3 +52,5 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const redirectToRoute = createAction<AppRoute>('site/redirectToRoute');
 
 export const setUserData = createAction<UserData>('site/setUserData');
+
+export const loadReviewsByOffer = createAction<Review[]>('data/loadReviewsByOffer');

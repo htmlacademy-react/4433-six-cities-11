@@ -7,7 +7,7 @@ type Props = {
 
 function ReviewList({reviews}: Props): JSX.Element {
   if (reviews.length === 0) {
-    return <div>Нет отзывов</div>;
+    return <p>Nothing yet commented.</p>;
   }
 
   return(
