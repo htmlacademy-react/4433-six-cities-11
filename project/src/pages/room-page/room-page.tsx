@@ -9,12 +9,16 @@ import {Reviews, nearsOffers} from '../../mocks/offers';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {calcRatingStyle, getReviewsOfCurrentOffer} from '../../util';
+import {useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../const';
 
 type Props = {
   offers: Offer[];
 };
 
 function RoomPage({offers}: Props): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   const params = useParams();
   const offerId = Number(params.id);
 
@@ -110,10 +114,8 @@ function RoomPage({offers}: Props): JSX.Element {
 
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsOfCurrentOffer.length}</span></h2>
-
                 <ReviewList reviews={reviewsOfCurrentOffer} />
-
-                <ReviewAdditioForm />
+                { authorizationStatus === AuthorizationStatus.Auth ? <ReviewAdditioForm /> : '' }
               </section>
             </div>
           </div>
