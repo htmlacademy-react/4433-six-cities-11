@@ -20,17 +20,21 @@ export const clearErrorAction = createAsyncThunk(
   },
 );
 
-export const fetchOfferAction = createAsyncThunk<void, undefined, {
+export const fetchOfferAction = createAsyncThunk<void, number | null, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }>(
     'data/fetchOffers',
-    async (_arg, {dispatch, extra: api}) => {
+    async (id, {dispatch, extra: api}) => {
       dispatch(setOffersLoadingStatus(true));
-      const {data} = await api.get<Offer[]>(APIRoute.Offers);
+      const {data} = id ? await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`) : await api.get<Offer[]>(APIRoute.Offers);
       dispatch(setOffersLoadingStatus(false));
-      dispatch(loadOffers(data));
+      if (id) {
+        dispatch(loadOffers('near', data));
+      } else {
+        dispatch(loadOffers('', data));
+      }
     },
   );
 

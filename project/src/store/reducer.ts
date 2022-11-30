@@ -17,6 +17,7 @@ type InitalState = {
   userData: null | UserData;
   reviews: Review[];
   currentOffer: null | Offer;
+  nearByOffer: Offer[];
 }
 
 const initialState: InitalState = {
@@ -30,7 +31,8 @@ const initialState: InitalState = {
   error: null,
   userData: null,
   reviews: [],
-  currentOffer: null
+  currentOffer: null,
+  nearByOffer: []
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -49,7 +51,8 @@ const reducer = createReducer(initialState, (builder) => {
       state.selectedOfferId = action.payload;
     })
     .addCase(loadOffers, (state, action) => {
-      state.offers = action.payload;
+      state.offers = action.payload.offers;
+      state.nearByOffer = action.payload.nearByOffer;
     })
     .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;

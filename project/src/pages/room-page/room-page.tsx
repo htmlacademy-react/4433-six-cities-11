@@ -11,7 +11,7 @@ import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
-import {loadReviews, loadOffer} from '../../store/api-actions';
+import {loadReviews, loadOffer, fetchOfferAction} from '../../store/api-actions';
 
 function RoomPage(): JSX.Element {
   const params = useParams();
@@ -21,6 +21,9 @@ function RoomPage(): JSX.Element {
   const offerId = Number(params.id);
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const reviewsOfCurrentOffer = useAppSelector((state) => state.reviews);
+  const nearByOffer = useAppSelector((state) => state.nearByOffer);
+
+  dispatch(fetchOfferAction(offerId));
 
   useEffect(() => {
     dispatch(loadOffer(offerId));
