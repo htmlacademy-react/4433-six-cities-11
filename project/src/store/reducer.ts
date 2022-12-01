@@ -3,7 +3,7 @@ import {DEFAULT_CITY, SortType, AuthorizationStatus} from '../const';
 import {Offer} from '../types/offer';
 import {UserData} from '../types/user-data';
 import {Review} from '../types/review';
-import {setCity, setOffersByCity, setCurrentSortType, setSelectedOffer, loadOffers, setOffersLoadingStatus, setError, requireAuthorization, setUserData, loadReviewsByOffer, loadCurrentOffer} from './action';
+import {setCity, setOffersByCity, setCurrentSortType, setSelectedOffer, loadOffers, loadNearOffers, setOffersLoadingStatus, setError, requireAuthorization, setUserData, loadReviewsByOffer, loadCurrentOffer} from './action';
 
 type InitalState = {
   currentCity: string;
@@ -17,7 +17,7 @@ type InitalState = {
   userData: null | UserData;
   reviews: Review[];
   currentOffer: null | Offer;
-  nearByOffer: Offer[];
+  nearOffers: Offer[];
   newReview: null | Review;
 }
 
@@ -33,7 +33,7 @@ const initialState: InitalState = {
   userData: null,
   reviews: [],
   currentOffer: null,
-  nearByOffer: [],
+  nearOffers: [],
   newReview: null
 };
 
@@ -53,8 +53,10 @@ const reducer = createReducer(initialState, (builder) => {
       state.selectedOfferId = action.payload;
     })
     .addCase(loadOffers, (state, action) => {
-      state.offers = action.payload.offers;
-      state.nearByOffer = action.payload.nearByOffer;
+      state.offers = action.payload;
+    })
+    .addCase(loadNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
     })
     .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;

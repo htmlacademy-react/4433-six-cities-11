@@ -41,25 +41,9 @@ export const setCurrentSortType = createAction('offers/sort',
     };
   });
 
-export const loadOffers = createAction('data/loadOffers',
-  (type: string, offers: Offer[]) => {
-    if (type) {
-      return {
-        payload: {
-          nearByOffer: offers,
-          offers: []
-        }
-      };
-    }
+export const loadOffers = createAction<Offer[]>('data/loadOffers');
 
-    return {
-      payload: {
-        nearByOffer: [],
-        offers: offers
-      }
-    };
-  }
-);
+export const loadNearOffers = createAction<Offer[]>('data/loadNearOffers');
 
 export const setOffersLoadingStatus = createAction<boolean>('data/setOffersLoadingStatus');
 
