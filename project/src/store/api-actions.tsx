@@ -3,12 +3,12 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {store} from './';
 import {AppDispatch, State} from '../types/state';
 import {Offer} from '../types/offer';
-import {loadOffers, setOffersLoadingStatus, setError, requireAuthorization, redirectToRoute, setUserData, loadReviewsByOffer, loadCurrentOffer, addReview} from './action';
+import {loadOffers, setOffersLoadingStatus, setError, requireAuthorization, redirectToRoute, setUserData, loadReviewsByOffer, loadCurrentOffer} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, TIMEOUT_SHOW_ERROR, AuthorizationStatus, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import {Review} from '../types/review';
+import {Review, ReviewData} from '../types/review';
 
 export const clearErrorAction = createAsyncThunk(
   'game/clearError',
@@ -117,14 +117,14 @@ export const loadOffer = createAsyncThunk<void, number, {
   },
 );
 
-export const addReviewForOffer = createAsyncThunk<void, Review, {
+export const postReviewAction = createAsyncThunk<void, ReviewData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/addReview',
-  async (review, {dispatch, extra: api}) => {
-    await api.post<Review>(`${APIRoute.Reviews}/${review.id}`, review);
-    dispatch(addReview(review));
+  async ({id, comment, rating}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+    dispatch(loadReviewsByOffer(data));
   },
 );

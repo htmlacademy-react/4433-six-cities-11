@@ -1,7 +1,7 @@
 import {useState, useRef, ChangeEvent, FormEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {Review} from '../../types/review';
-import {addReviewForOffer} from '../../store/api-actions';
+import {ReviewData} from '../../types/review';
+import {postReviewAction} from '../../store/api-actions';
 
 function ReviewAdditioForm(): JSX.Element {
   const author = useAppSelector((state) => state.userData);
@@ -16,8 +16,8 @@ function ReviewAdditioForm(): JSX.Element {
 
   const ratingChangeHandle = (evt: ChangeEvent<HTMLInputElement>) => setFormData({...formData, rating: evt.target.value});
 
-  const onSubmit = (review: Review) => {
-    dispatch(addReviewForOffer(review));
+  const onSubmit = (review: ReviewData) => {
+    dispatch(postReviewAction(review));
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -29,16 +29,9 @@ function ReviewAdditioForm(): JSX.Element {
 
     if (reviewRef.current !== null) {
       onSubmit({
-        comment: reviewRef.current.value,
-        date: 'April 2019',
         id: currentOffer.id,
+        comment: reviewRef.current.value,
         rating: Number(formData.rating),
-        user: {
-          avatarUrl: author.avatarUrl,
-          id: author.id,
-          isPro: author.isPro,
-          name: author.name
-        }
       });
     }
   };
