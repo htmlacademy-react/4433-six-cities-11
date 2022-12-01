@@ -74,3 +74,6 @@ export const setUserData = createAction<UserData>('site/setUserData');
 export const loadReviewsByOffer = createAction<Review[]>('data/loadReviewsByOffer');
 
 export const loadCurrentOffer = createAction<Offer>('data/loadCurrentOffer');
+
+export const addReview = createAction<Review>('data/addReview');
+

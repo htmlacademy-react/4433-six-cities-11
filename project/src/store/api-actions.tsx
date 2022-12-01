@@ -3,7 +3,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {store} from './';
 import {AppDispatch, State} from '../types/state';
 import {Offer} from '../types/offer';
-import {loadOffers, setOffersLoadingStatus, setError, requireAuthorization, redirectToRoute, setUserData, loadReviewsByOffer, loadCurrentOffer} from './action';
+import {loadOffers, setOffersLoadingStatus, setError, requireAuthorization, redirectToRoute, setUserData, loadReviewsByOffer, loadCurrentOffer, addReview} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, TIMEOUT_SHOW_ERROR, AuthorizationStatus, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -114,5 +114,17 @@ export const loadOffer = createAsyncThunk<void, number, {
     } catch {
       // dispatch(loadCurrentOffer({}));
     }
+  },
+);
+
+export const addReviewForOffer = createAsyncThunk<void, Review, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/addReview',
+  async (review, {dispatch, extra: api}) => {
+    await api.post<Review>(`${APIRoute.Reviews}/${review.id}`, review);
+    dispatch(addReview(review));
   },
 );

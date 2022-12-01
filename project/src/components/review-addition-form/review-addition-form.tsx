@@ -1,19 +1,54 @@
-import {useState, ChangeEvent} from 'react';
+import {useState, useRef, ChangeEvent, FormEvent} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {Review} from '../../types/review';
+import {addReviewForOffer} from '../../store/api-actions';
 
 function ReviewAdditioForm(): JSX.Element {
+  const author = useAppSelector((state) => state.userData);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const reviewRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const dispatch = useAppDispatch();
+
   const [formData, setFormData] = useState({
     rating: '',
-    review: '',
   });
 
   const ratingChangeHandle = (evt: ChangeEvent<HTMLInputElement>) => setFormData({...formData, rating: evt.target.value});
-  const reviewChangeHandle = (evt: ChangeEvent<HTMLTextAreaElement>) => setFormData({...formData, review: evt.target.value});
+
+  const onSubmit = (review: Review) => {
+    dispatch(addReviewForOffer(review));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if(!author || !currentOffer) {
+      return false;
+    }
+
+    if (reviewRef.current !== null) {
+      onSubmit({
+        comment: reviewRef.current.value,
+        date: 'April 2019',
+        id: currentOffer.id,
+        rating: Number(formData.rating),
+        user: {
+          avatarUrl: author.avatarUrl,
+          id: author.id,
+          isPro: author.isPro,
+          name: author.name
+        }
+      });
+    }
+  };
 
   return(
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" onChange={ratingChangeHandle} name="rating" value="5" id="5-stars" type="radio" />
+
+        <input className="form__rating-input visually-hidden" onChange={ratingChangeHandle} name="rating" value="5" id="5-stars" type="radio" required />
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
@@ -50,8 +85,7 @@ function ReviewAdditioForm(): JSX.Element {
       </div>
 
       <textarea
-        value={formData.review}
-        onChange={reviewChangeHandle}
+        ref={reviewRef}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
@@ -66,7 +100,6 @@ function ReviewAdditioForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          onClick={(evt) => evt.preventDefault()}
           disabled={false}
         >
             Submit

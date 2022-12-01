@@ -23,7 +23,7 @@ function RoomPage(): JSX.Element {
   const reviewsOfCurrentOffer = useAppSelector((state) => state.reviews);
   const nearByOffer = useAppSelector((state) => state.nearByOffer);
 
-  dispatch(fetchOfferAction(offerId));
+  // dispatch(fetchOfferAction(offerId));
 
   useEffect(() => {
     dispatch(loadOffer(offerId));
