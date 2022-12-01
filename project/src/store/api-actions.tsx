@@ -100,7 +100,7 @@ export const loadReviews = createAsyncThunk<void, number, {
       const {data} = await api.get<Review[]>(path);
       dispatch(loadReviewsByOffer(data));
     } catch {
-      // dispatch(loadCurrentOffer());
+      dispatch(setError('Can not find reviews'));
     }
   },
 );
@@ -117,7 +117,7 @@ export const loadOffer = createAsyncThunk<void, number, {
       const {data} = await api.get<Offer>(path);
       dispatch(loadCurrentOffer(data));
     } catch {
-      // dispatch(loadCurrentOffer({}));
+      dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );
