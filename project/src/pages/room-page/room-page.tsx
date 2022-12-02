@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {useParams} from 'react-router-dom';
 import Header from '../../components/header/header';
@@ -5,26 +6,31 @@ import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import ReviewList from '../../components/review-list/review-list';
 import ReviewAdditioForm from '../../components/review-addition-form/review-addition-form';
-import {Reviews, nearsOffers} from '../../mocks/offers';
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
-import {calcRatingStyle, getReviewsOfCurrentOffer} from '../../util';
+import {useAppDispatch} from '../../hooks';
+import {calcRatingStyle} from '../../util';
+import {useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../const';
+import {loadReviews, loadOffer, fetchNearOfferAction} from '../../store/api-actions';
 
-type Props = {
-  offers: Offer[];
-};
-
-function RoomPage({offers}: Props): JSX.Element {
+function RoomPage(): JSX.Element {
   const params = useParams();
-  const offerId = Number(params.id);
+  const dispatch = useAppDispatch();
 
-  const currentOffer = offers.find((el) => el.id === offerId);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offerId = Number(params.id);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const reviewsOfCurrentOffer = useAppSelector((state) => state.reviews);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+
+  useEffect(() => {
+    dispatch(fetchNearOfferAction(offerId));
+    dispatch(loadOffer(offerId));
+    dispatch(loadReviews(offerId));
+  }, [dispatch, offerId]);
 
   if(!currentOffer) {
     return <div>Loading</div>;
   }
-
-  const reviewsOfCurrentOffer: Review[] = getReviewsOfCurrentOffer(currentOffer.id, Reviews);
 
   return (
     <div className="page">
@@ -110,15 +116,13 @@ function RoomPage({offers}: Props): JSX.Element {
 
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsOfCurrentOffer.length}</span></h2>
-
                 <ReviewList reviews={reviewsOfCurrentOffer} />
-
-                <ReviewAdditioForm />
+                { authorizationStatus === AuthorizationStatus.Auth ? <ReviewAdditioForm /> : '' }
               </section>
             </div>
           </div>
           <section className="property__map map">
-            <Map />
+            <Map offers={nearOffers} />
           </section>
         </section>
 
@@ -126,7 +130,7 @@ function RoomPage({offers}: Props): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OfferList offers={nearsOffers} imageWrapperClassName='near-places__image-wrapper' />
+              <OfferList offers={nearOffers} imageWrapperClassName='near-places__image-wrapper' />
             </div>
           </section>
         </div>

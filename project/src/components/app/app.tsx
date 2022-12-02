@@ -44,7 +44,7 @@ function App(): JSX.Element {
           />
           <Route
             path={`${AppRoute.Room}/:id`}
-            element={<RoomPage offers={offers} />}
+            element={<RoomPage />}
           />
           <Route
             path={AppRoute.Login}
