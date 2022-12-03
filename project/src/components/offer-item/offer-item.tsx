@@ -4,7 +4,7 @@ import {calcRatingStyle} from '../../util';
 import {Offer} from '../../types/offer';
 
 import {useAppDispatch} from '../../hooks';
-import {setSelectedOffer} from '../../store/action';
+import {setSelectedOffer} from '../../store/offer-process/offer-process';
 
 type Props = {
   offer: Offer;

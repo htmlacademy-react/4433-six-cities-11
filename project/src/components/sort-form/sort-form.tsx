@@ -1,11 +1,12 @@
 import {useState} from 'react';
-import {setCurrentSortType} from '../../store/action';
+import {setCurrentSortType, setOffersByCity} from '../../store/offer-process/offer-process';
 import {SortType} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getCurrentSortType, getOffersByCity} from '../../store/offer-process/selectors';
 
 function SortForm(): JSX.Element {
-  const currentSortType = useAppSelector((state) => state.currentSortType);
-  const offersByCity = useAppSelector((state) => state.offersByCity);
+  const currentSortType = useAppSelector(getCurrentSortType);
+  const offersByCity = useAppSelector(getOffersByCity);
   const dispatch = useAppDispatch();
 
   const [isActive, setActive] = useState<boolean>(false);
@@ -30,7 +31,10 @@ function SortForm(): JSX.Element {
             className={`places__option ${type === currentSortType ? 'places__option--active' : ''}`}
             key={type}
             tabIndex={0}
-            onClick={() => dispatch(setCurrentSortType(type, offersByCity)) }
+            onClick={() => {
+              dispatch(setCurrentSortType(type));
+              dispatch(setOffersByCity(offersByCity));
+            }}
           >
             {type}
           </li>

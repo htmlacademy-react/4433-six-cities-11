@@ -2,7 +2,8 @@ import {MouseEvent, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {DEFAULT_CITY, SortType} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {setCity, setCurrentSortType} from '../../store/action';
+import {setCurrentCity, setCurrentSortType, setOffersByCity} from '../../store/offer-process/offer-process';
+import {getOffers} from '../../store/offer-process/selectors';
 
 type Props = {
   cities: string[];
@@ -11,16 +12,17 @@ type Props = {
 
 function CitiesList({cities, currentCity}: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const offersByCity = useAppSelector((state) => state.offersByCity);
+  const offers = useAppSelector(getOffers);
 
   useEffect(() => {
-    dispatch(setCity(DEFAULT_CITY));
+    dispatch(setCurrentCity(DEFAULT_CITY));
   }, [dispatch, cities]);
 
   function handleCityClick (event: MouseEvent, city: string) {
     event.preventDefault();
-    dispatch(setCity(city));
-    dispatch(setCurrentSortType(SortType.Default, offersByCity));
+    dispatch(setCurrentCity(city));
+    dispatch(setCurrentSortType(SortType.Default));
+    dispatch(setOffersByCity(offers));
   }
 
   return(

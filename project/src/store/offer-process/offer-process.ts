@@ -17,14 +17,16 @@ export const offerProcess = createSlice({
     setCurrentCity: (state, action: PayloadAction<string>) => {
       state.currentCity = action.payload;
     },
-    setOffersByCity: (state, action: PayloadAction<{city: string; offers: Offer[]}>) => {
-      state.offersByCity = action.payload.offers.filter((offer) => offer.city.name === action.payload.city);
+    setOffersByCity: (state, action: PayloadAction<Offer[]>) => {
+      state.offersByCity = action.payload;
     },
     setSelectedOffer: (state, action: PayloadAction<number>) => {
       state.selectedOfferId = action.payload;
     },
-    changeSortType: (state, action: PayloadAction<SortType>) => {
+    setCurrentSortType: (state, action: PayloadAction<SortType>) => {
       state.currentSortType = action.payload;
     },
   },
 });
+
+export const {setCurrentCity, setOffersByCity, setSelectedOffer, setCurrentSortType} = offerProcess.actions;

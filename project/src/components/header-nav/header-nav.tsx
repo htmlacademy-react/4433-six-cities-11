@@ -2,10 +2,12 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {logoutAction} from '../../store/api-actions';
 import {useAppSelector, useAppDispatch} from '../../hooks';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getUserData} from '../../store/user-process/selectors';
 
 function HeaderNav(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.userData);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
 
   const dispatch = useAppDispatch();
 
@@ -17,7 +19,7 @@ function HeaderNav(): JSX.Element {
             <Link className="header__nav-link header__nav-link--profile" to="/">
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
-              <span className="header__user-name user__name">{user?.email}</span>
+              <span className="header__user-name user__name">{userData?.email}</span>
               <span className="header__favorite-count">3</span>
             </Link>
           </li>

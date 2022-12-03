@@ -10,22 +10,25 @@ import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
-import {loadReviews, loadOffer, fetchNearOfferAction} from '../../store/api-actions';
+import {fetchReviewAction, fetchOfferInfo, fetchNearOfferAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getCurrentOffer} from '../../store/offer-data/selectors';
+import {getReviews, getNearbyOffer} from '../../store/offer-data/selectors';
 
 function RoomPage(): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offerId = Number(params.id);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const reviewsOfCurrentOffer = useAppSelector((state) => state.reviews);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const reviewsOfCurrentOffer = useAppSelector(getReviews);
+  const nearOffers = useAppSelector(getNearbyOffer);
 
   useEffect(() => {
     dispatch(fetchNearOfferAction(offerId));
-    dispatch(loadOffer(offerId));
-    dispatch(loadReviews(offerId));
+    dispatch(fetchOfferInfo(offerId));
+    dispatch(fetchReviewAction(offerId));
   }, [dispatch, offerId]);
 
   if(!currentOffer) {

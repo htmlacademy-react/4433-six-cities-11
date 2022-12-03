@@ -1,12 +1,14 @@
 import {store} from '../store/index.js';
 import {Offer} from '../types/offer';
 import {Review} from '../types/review';
+import {UserData} from '../types/user-data';
 import {AuthorizationStatus, SortType} from '../const.js';
 
 export type AppDispatch = typeof store.dispatch;
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
+  userData: null | UserData;
 };
 
 export type OfferData = {
