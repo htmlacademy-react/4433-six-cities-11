@@ -18,6 +18,7 @@ export type OfferData = {
   hasError: boolean;
   reviews: Review[];
   nearOffers: Offer[];
+  favoriteOffers: Offer[];
 };
 
 export type OfferProcess = {

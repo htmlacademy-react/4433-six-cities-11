@@ -1,12 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {OfferData} from '../../types/state';
-import {fetchOfferAction, fetchNearOfferAction, fetchOfferInfo, fetchReviewAction, postReviewAction} from '../api-actions';
+import {fetchOfferAction, fetchNearOfferAction, fetchOfferInfo, fetchReviewAction, postReviewAction, fetchFavoriteOfferAction} from '../api-actions';
 
 const initialState: OfferData = {
   offers: [],
   currentOffer: null,
   nearOffers: [],
+  favoriteOffers: [],
   reviews: [],
   isOffersLoading: false,
   hasError: false
@@ -39,6 +40,18 @@ export const offerData = createSlice({
         state.nearOffers = action.payload;
       })
       .addCase(fetchNearOfferAction.rejected, (state) => {
+        state.hasError = true;
+      })
+      // favorite offers
+      .addCase(fetchFavoriteOfferAction.pending, (state) => {
+        state.isOffersLoading = true;
+        state.hasError = false;
+      })
+      .addCase(fetchFavoriteOfferAction.fulfilled, (state, action) => {
+        state.isOffersLoading = false;
+        state.favoriteOffers = action.payload;
+      })
+      .addCase(fetchFavoriteOfferAction.rejected, (state) => {
         state.hasError = true;
       })
       // current offer
