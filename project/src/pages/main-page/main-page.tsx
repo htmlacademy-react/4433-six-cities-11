@@ -8,6 +8,7 @@ import CitiesList from '../../components/cities-list/cities-list';
 import SortForm from '../../components/sort-form/sort-form';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getOffers} from '../../store/offer-data/selectors';
+import {setOffersByCity} from '../../store/offer-process/offer-process';
 import {getCurrentCity, getSortedOffers, getCurrentSortType, getOffersByCity} from '../../store/offer-process/selectors';
 
 const CITIES_LIST = Object.keys(CITIES);
@@ -23,7 +24,7 @@ function MainPage(): JSX.Element {
   const sortedOffers = useAppSelector(getSortedOffers);
 
   useEffect(() => {
-    // dispatch(setOffersByCity(currentCity, offers));
+    dispatch(setOffersByCity(offers));
   }, [dispatch, offers, currentCity]);
 
   return (
@@ -58,7 +59,7 @@ function MainPage(): JSX.Element {
 
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offersByCity}/>
+                <Map offers={offersByCity} city={currentCity} />
               </section>
             </div>
           </div>

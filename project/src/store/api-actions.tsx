@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {Offer} from '../types/offer';
-import {setError, redirectToRoute, setUserData} from './action';
+import {redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, TIMEOUT_SHOW_ERROR, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';

@@ -125,7 +125,7 @@ function RoomPage(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={nearOffers} />
+            <Map offers={nearOffers} city={currentOffer.city.name} />
           </section>
         </section>
 
