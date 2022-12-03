@@ -1,5 +1,28 @@
 import {store} from '../store/index.js';
-
-export type State = ReturnType<typeof store.getState>;
+import {Offer} from '../types/offer';
+import {Review} from '../types/review';
+import {AuthorizationStatus, SortType} from '../const.js';
 
 export type AppDispatch = typeof store.dispatch;
+
+export type UserProcess = {
+  authorizationStatus: AuthorizationStatus;
+};
+
+export type OfferData = {
+  offers: Offer[];
+  isOffersLoading: boolean;
+  currentOffer: null | Offer;
+  hasError: boolean;
+  reviews: Review[];
+  nearOffers: Offer[];
+};
+
+export type OfferProcess = {
+  currentCity: string;
+  offersByCity: Offer[];
+  currentSortType: SortType;
+  selectedOfferId: number;
+};
+
+export type State = ReturnType<typeof store.getState>;

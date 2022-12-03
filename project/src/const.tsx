@@ -28,6 +28,12 @@ export enum SortType {
   Top = 'Top rated first',
 }
 
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+  Process = 'PROCESS'
+}
+
 export const MAX_RATING = 5;
 
 export const DEFAULT_CITY = 'Paris';
