@@ -6,6 +6,7 @@ import {Offer} from '../../types/offer';
 const initialState: OfferProcess = {
   currentCity: DEFAULT_CITY,
   offersByCity: [],
+  sortedOffers: [],
   selectedOfferId: 1,
   currentSortType: SortType.Default,
 };
@@ -26,7 +27,10 @@ export const offerProcess = createSlice({
     setCurrentSortType: (state, action: PayloadAction<SortType>) => {
       state.currentSortType = action.payload;
     },
+    setSortedOffers: (state, action: PayloadAction<Offer[]>) => {
+      state.sortedOffers = action.payload;
+    },
   },
 });
 
-export const {setCurrentCity, setOffersByCity, setSelectedOffer, setCurrentSortType} = offerProcess.actions;
+export const {setCurrentCity, setOffersByCity, setSelectedOffer, setCurrentSortType, setSortedOffers} = offerProcess.actions;

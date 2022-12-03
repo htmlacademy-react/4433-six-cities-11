@@ -26,6 +26,6 @@ export const getSortedOffers = createSelector(
       return offers;
     }
 
-    return offers.sort(sortings[currentSortType]);
+    return [...offers].sort(sortings[currentSortType]);
   }
 );

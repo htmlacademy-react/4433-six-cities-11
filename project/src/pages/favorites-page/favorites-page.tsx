@@ -8,9 +8,8 @@
 // import getOffersGrouppedByCity from '../../util';
 // import {getOffers} from '../../store/offer-data/selectors';
 
-export {};
-
-// function FavoritesPage(): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  return <div>Привет!</div>;
 //   const offers = useAppSelector(getOffers);
 //   const offersGrouppedByCity = getOffersGrouppedByCity(offers);
 //   const offersGrouppedByCityArray = Object.entries(offersGrouppedByCity);
@@ -49,6 +48,6 @@ export {};
 //       <Footer />
 //     </div>
 //   );
-// }
+}
 
-// export default FavoritesPage;
+export default FavoritesPage;

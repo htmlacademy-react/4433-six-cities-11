@@ -23,6 +23,7 @@ export type OfferData = {
 export type OfferProcess = {
   currentCity: string;
   offersByCity: Offer[];
+  sortedOffers: Offer[];
   currentSortType: SortType;
   selectedOfferId: number;
 };

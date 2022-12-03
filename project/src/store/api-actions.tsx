@@ -4,20 +4,10 @@ import {AppDispatch, State} from '../types/state';
 import {Offer} from '../types/offer';
 import {redirectToRoute} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, TIMEOUT_SHOW_ERROR, AppRoute} from '../const';
+import {APIRoute, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {Review, ReviewData} from '../types/review';
-
-// export const clearErrorAction = createAsyncThunk(
-//   'game/clearError',
-//   () => {
-//     setTimeout(
-//       () => store.dispatch(setError(null)),
-//       TIMEOUT_SHOW_ERROR,
-//     );
-//   },
-// );
 
 export const fetchOfferAction = createAsyncThunk<Offer[], undefined, {
     dispatch: AppDispatch;
@@ -52,7 +42,6 @@ export const fetchOfferInfo = createAsyncThunk<Offer, number, {
   async (id, {dispatch, extra: api}) => {
     const path = `${APIRoute.Offers}/${id}`;
     const {data} = await api.get<Offer>(path);
-    dispatch(redirectToRoute(AppRoute.NotFound));
     return data;
   },
 );
@@ -66,7 +55,6 @@ export const fetchReviewAction = createAsyncThunk<Review[], number, {
   async (id, {dispatch, extra: api}) => {
     const path = `${APIRoute.Reviews}/${id}`;
     const {data} = await api.get<Review[]>(path);
-    // dispatch(setError('Can not find reviews'));
     return data;
   },
 );
@@ -83,15 +71,15 @@ export const postReviewAction = createAsyncThunk<Review[], ReviewData, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    await api.get<UserData>(APIRoute.Login);
-    // dispatch(setUserData(data));
+    const {data} = await api.get<UserData>(APIRoute.Login);
+    return data;
   },
 );
 

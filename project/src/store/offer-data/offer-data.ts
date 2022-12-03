@@ -33,7 +33,6 @@ export const offerData = createSlice({
       })
       // near offers
       .addCase(fetchNearOfferAction.pending, (state) => {
-        state.isOffersLoading = false;
         state.hasError = false;
       })
       .addCase(fetchNearOfferAction.fulfilled, (state, action) => {
@@ -44,12 +43,10 @@ export const offerData = createSlice({
       })
       // current offer
       .addCase(fetchOfferInfo.pending, (state) => {
-        state.isOffersLoading = true;
         state.hasError = false;
       })
       .addCase(fetchOfferInfo.fulfilled, (state, action) => {
         state.currentOffer = action.payload;
-        state.hasError = false;
       })
       .addCase(fetchOfferInfo.rejected, (state) => {
         state.hasError = true;
@@ -67,7 +64,7 @@ export const offerData = createSlice({
         state.reviews = action.payload;
         state.hasError = false;
       })
-      .addCase(postReviewAction.rejected, (state, action) => {
+      .addCase(postReviewAction.rejected, (state) => {
         state.hasError = true;
       });
   }

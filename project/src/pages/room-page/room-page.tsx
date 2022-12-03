@@ -19,8 +19,9 @@ function RoomPage(): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offerId = Number(params.id);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const currentOffer = useAppSelector(getCurrentOffer);
   const reviewsOfCurrentOffer = useAppSelector(getReviews);
   const nearOffers = useAppSelector(getNearbyOffer);
