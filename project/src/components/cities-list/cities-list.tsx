@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {MouseEvent, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {DEFAULT_CITY, SortType} from '../../const';
@@ -44,4 +45,4 @@ function CitiesList({cities, currentCity}: Props): JSX.Element {
   );
 }
 
-export default CitiesList;
+export default memo(CitiesList);

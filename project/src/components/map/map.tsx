@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -53,4 +54,4 @@ function Map({offers, city}: Props): JSX.Element {
   return <div style={{height: '100%'}} ref={mapRef}></div>;
 }
 
-export default Map;
+export default memo(Map);
