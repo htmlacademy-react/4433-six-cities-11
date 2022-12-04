@@ -3,18 +3,15 @@ import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import OfferItem from '../../components/offer-item/offer-item';
 import {useAppSelector} from '../../hooks';
-// import getOffersGrouppedByCity from '../../util';
-import {getOffers, getFavoriteOffers} from '../../store/offer-data/selectors';
+import OfferItem from '../../components/offer-item/offer-item';
+import {getOffersGrouppedByCity} from '../../util';
+import {getFavoriteOffers} from '../../store/offer-data/selectors';
 
 function FavoritesPage(): JSX.Element {
-  const offers = useAppSelector(getOffers);
   const favoriteOffers = useAppSelector(getFavoriteOffers);
-  console.log(favoriteOffers);
-  const offersGrouppedByCityArray = offers;
-  // const offersGrouppedByCity = getOffersGrouppedByCity(offers);
-  // const offersGrouppedByCityArray = Object.entries(offersGrouppedByCity);
+  const favoriteOffersByCity = getOffersGrouppedByCity(favoriteOffers);
+  const offersGrouppedByCityArray = Object.entries(favoriteOffersByCity);
 
   return (
     <div className="page">
@@ -37,7 +34,7 @@ function FavoritesPage(): JSX.Element {
             :
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
-              {/* <ul className="favorites__list">
+              <ul className="favorites__list">
                 {offersGrouppedByCityArray.map(([city, offers]) => (
                   <li className="favorites__locations-items" key={city}>
                     <div className="favorites__locations locations locations--current">
@@ -52,7 +49,7 @@ function FavoritesPage(): JSX.Element {
                     </div>
                   </li>
                 ))}
-              </ul> */}
+              </ul>
             </section> }
         </div>
       </main>

@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, FormEvent} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {useParams} from 'react-router-dom';
 import Header from '../../components/header/header';
@@ -10,10 +10,11 @@ import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../const';
-import {fetchReviewAction, fetchOfferInfo, fetchNearOfferAction} from '../../store/api-actions';
+import {fetchReviewAction, fetchOfferInfo, fetchNearOfferAction, fetchOfferStatusAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
 import {getReviews, getNearbyOffer} from '../../store/offer-data/selectors';
+import {OfferStatusData} from '../../types/offer';
 
 function RoomPage(): JSX.Element {
   const params = useParams();
@@ -25,12 +26,30 @@ function RoomPage(): JSX.Element {
   const currentOffer = useAppSelector(getCurrentOffer);
   const reviewsOfCurrentOffer = useAppSelector(getReviews);
   const nearOffers = useAppSelector(getNearbyOffer);
+  const isFavorite = currentOffer ? Number(currentOffer.isFavorite) : null;
 
   useEffect(() => {
     dispatch(fetchNearOfferAction(offerId));
     dispatch(fetchOfferInfo(offerId));
     dispatch(fetchReviewAction(offerId));
-  }, [dispatch, offerId]);
+  }, [dispatch, offerId, isFavorite]);
+
+  const onSubmit = (status: OfferStatusData) => {
+    dispatch(fetchOfferStatusAction(status));
+  };
+
+  const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+
+    if (currentOffer === null) {
+      return null;
+    }
+
+    onSubmit({
+      status: Number(!currentOffer.isFavorite),
+      id: offerId,
+    });
+  };
 
   if(!currentOffer) {
     return <div>Loading</div>;
@@ -64,8 +83,8 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {currentOffer.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                <button className={`property__bookmark-button button ${currentOffer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button" onClick={handleButtonClick}>
+                  <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">${currentOffer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
