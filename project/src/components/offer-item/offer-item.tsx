@@ -1,8 +1,8 @@
-import {useEffect, FormEvent} from 'react';
+import {FormEvent} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {calcRatingStyle} from '../../util';
-import {Offer, OfferStatusData} from '../../types/offer';
+import {Offer} from '../../types/offer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setSelectedOffer} from '../../store/offer-process/offer-process';
 import {fetchOfferStatusAction} from '../../store/api-actions';
