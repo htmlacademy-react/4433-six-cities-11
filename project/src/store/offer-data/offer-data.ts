@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace} from '../../const';
+import {NameSpace, MAX_COUNT_OF_REVIEWS} from '../../const';
+import {sortReviews} from '../../util';
 import {OfferData} from '../../types/state';
 import {fetchOfferAction, fetchNearOfferAction, fetchOfferInfo, fetchReviewAction, postReviewAction, fetchFavoriteOfferAction, fetchOfferStatusAction} from '../api-actions';
 
@@ -69,7 +70,8 @@ export const offerData = createSlice({
       })
       // load reviews
       .addCase(fetchReviewAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        const reviewList = sortReviews(action.payload);
+        state.reviews = reviewList.length > MAX_COUNT_OF_REVIEWS ? reviewList.slice(0, MAX_COUNT_OF_REVIEWS) : reviewList;
         state.hasError = false;
       })
       .addCase(fetchReviewAction.rejected, (state) => {
@@ -77,7 +79,8 @@ export const offerData = createSlice({
       })
       // post review
       .addCase(postReviewAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        const reviewList = sortReviews(action.payload);
+        state.reviews = reviewList.length > MAX_COUNT_OF_REVIEWS ? reviewList.slice(0, MAX_COUNT_OF_REVIEWS) : reviewList;
         state.hasError = false;
       })
       .addCase(postReviewAction.rejected, (state) => {

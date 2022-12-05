@@ -28,8 +28,6 @@ function RoomPage(): JSX.Element {
   const nearOffers = useAppSelector(getNearbyOffer);
   const isFavorite = currentOffer ? Number(currentOffer.isFavorite) : null;
 
-  console.log(reviewsOfCurrentOffer);
-
   useEffect(() => {
     dispatch(fetchNearOfferAction(offerId));
     dispatch(fetchOfferInfo(offerId));
