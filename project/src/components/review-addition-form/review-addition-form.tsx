@@ -4,6 +4,7 @@ import {ReviewData} from '../../types/review';
 import {postReviewAction} from '../../store/api-actions';
 import {getUserData} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
+import {MIN_LENGTH_OF_REVIEW} from '../../const';
 
 function ReviewAdditioForm(): JSX.Element {
   const author = useAppSelector(getUserData);
@@ -85,6 +86,8 @@ function ReviewAdditioForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        required
+        minLength={MIN_LENGTH_OF_REVIEW}
       />
 
       <div className="reviews__button-wrapper">
