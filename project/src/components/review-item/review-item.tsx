@@ -1,11 +1,13 @@
 import {Review} from '../../types/review';
-import {calcRatingStyle} from '../../util';
+import {calcRatingStyle, humanizeDate} from '../../util';
 
 type Props = {
   review: Review;
 }
 
 function ReviewItem({review}: Props): JSX.Element {
+  const reviewDate = humanizeDate(review.date);
+
   return(
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -22,7 +24,7 @@ function ReviewItem({review}: Props): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{review.comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime="2019-04-24">{reviewDate}</time>
       </div>
     </li>
   );

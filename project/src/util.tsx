@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {Offer, OffersGrouppedByCity} from './types/offer';
 import {MAX_RATING} from './const';
 
@@ -18,3 +19,5 @@ export const getOffersGrouppedByCity = (offers: Offer[]) => {
 
   return result;
 };
+
+export const humanizeDate = (date: string) => dayjs(date).format('MMMM YYYY');
