@@ -9,12 +9,12 @@ import ReviewAdditioForm from '../../components/review-addition-form/review-addi
 import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, AppRoute} from '../../const';
 import {fetchReviewAction, fetchOfferInfo, fetchNearOfferAction, fetchOfferStatusAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
 import {getReviews, getNearbyOffer} from '../../store/offer-data/selectors';
-import {OfferStatusData} from '../../types/offer';
+import {redirectToRoute} from '../../store/action';
 
 function RoomPage(): JSX.Element {
   const params = useParams();
@@ -34,10 +34,6 @@ function RoomPage(): JSX.Element {
     dispatch(fetchReviewAction(offerId));
   }, [dispatch, offerId, isFavorite]);
 
-  const onSubmit = (status: OfferStatusData) => {
-    dispatch(fetchOfferStatusAction(status));
-  };
-
   const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
@@ -45,10 +41,14 @@ function RoomPage(): JSX.Element {
       return null;
     }
 
-    onSubmit({
-      status: Number(!currentOffer.isFavorite),
-      id: offerId,
-    });
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchOfferStatusAction({
+        status: Number(!currentOffer.isFavorite),
+        id: offerId,
+      }));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };
 
   if(!currentOffer) {

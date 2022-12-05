@@ -1,10 +1,12 @@
 import {FormEvent} from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import {calcRatingStyle} from '../../util';
 import {Offer} from '../../types/offer';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import {redirectToRoute} from '../../store/action';
 import {setSelectedOffer} from '../../store/offer-process/offer-process';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {fetchOfferStatusAction} from '../../store/api-actions';
 import {getSelectedOfferId} from '../../store/offer-process/selectors';
 
@@ -19,6 +21,7 @@ type Props = {
 function OfferItem({offer, className = 'cities__card', imageWrapperClassName = 'cities__image-wrapper', imageWidth = 260, imageHeight = 200}: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const selectedOfferId = useAppSelector(getSelectedOfferId);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   function handleHover(id: number) {
     dispatch(setSelectedOffer(id));
@@ -27,10 +30,14 @@ function OfferItem({offer, className = 'cities__card', imageWrapperClassName = '
   const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
-    dispatch(fetchOfferStatusAction({
-      status: Number(!offer.isFavorite),
-      id: selectedOfferId,
-    }));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchOfferStatusAction({
+        status: Number(!offer.isFavorite),
+        id: selectedOfferId,
+      }));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };
 
   return(

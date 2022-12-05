@@ -46,7 +46,7 @@ function Map({offers, city}: Props): JSX.Element {
           )
           .addTo(map);
 
-        map.flyTo({lat: offer.city.location.latitude, lng: offer.city.location.longitude}, offer.city.location.zoom);
+        map.setView({lat: offer.city.location.latitude, lng: offer.city.location.longitude}, offer.city.location.zoom);
       });
     }
   }, [map, offers, city, selectedOfferId]);
