@@ -19,6 +19,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Reviews = '/comments',
+  Favorite = '/favorite',
 }
 
 export enum SortType {
@@ -26,6 +27,12 @@ export enum SortType {
   PriceUp = 'Price: low to high',
   PriceDown = 'Price: high to low',
   Top = 'Top rated first',
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+  Process = 'PROCESS'
 }
 
 export const MAX_RATING = 5;

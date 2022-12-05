@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -5,9 +6,11 @@ import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import useMap from '../../hooks/useMap/useMap';
 import {useAppSelector} from '../../hooks';
 import {Offer} from '../../types/offer';
+import {getSelectedOfferId} from '../../store/offer-process/selectors';
 
 type Props = {
   offers: Offer[];
+  city: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -22,13 +25,10 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({offers}: Props): JSX.Element {
+function Map({offers, city}: Props): JSX.Element {
   const mapRef = useRef(null);
-
-  const currentCity: string = useAppSelector((state) => state.currentCity);
-  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
-
-  const map = useMap(mapRef, currentCity);
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
@@ -49,9 +49,9 @@ function Map({offers}: Props): JSX.Element {
         map.flyTo({lat: offer.city.location.latitude, lng: offer.city.location.longitude}, offer.city.location.zoom);
       });
     }
-  }, [map, offers, currentCity, selectedOfferId]);
+  }, [map, offers, city, selectedOfferId]);
 
   return <div style={{height: '100%'}} ref={mapRef}></div>;
 }
 
-export default Map;
+export default memo(Map);

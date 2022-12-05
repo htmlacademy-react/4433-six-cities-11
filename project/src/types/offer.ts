@@ -36,3 +36,8 @@ export type Offer = {
 };
 
 export type OffersGrouppedByCity = Record<string, Offer[]>;
+
+export type OfferStatusData = {
+  status: number;
+  id: number;
+}

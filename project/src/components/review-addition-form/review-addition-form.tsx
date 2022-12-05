@@ -2,10 +2,12 @@ import {useState, useRef, ChangeEvent, FormEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {ReviewData} from '../../types/review';
 import {postReviewAction} from '../../store/api-actions';
+import {getUserData} from '../../store/user-process/selectors';
+import {getCurrentOffer} from '../../store/offer-data/selectors';
 
 function ReviewAdditioForm(): JSX.Element {
-  const author = useAppSelector((state) => state.userData);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const author = useAppSelector(getUserData);
+  const currentOffer = useAppSelector(getCurrentOffer);
   const reviewRef = useRef<HTMLTextAreaElement | null>(null);
 
   const dispatch = useAppDispatch();

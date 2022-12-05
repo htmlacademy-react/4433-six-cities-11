@@ -1,32 +1,32 @@
 import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Offer} from '../../types/offer';
 import OfferList from '../../components/offer-list/offer-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-import {SortType} from '../../const';
+import {SortType, CITIES} from '../../const';
 import CitiesList from '../../components/cities-list/cities-list';
 import SortForm from '../../components/sort-form/sort-form';
-
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {setOffersByCity} from '../../store/action';
+import {getOffers} from '../../store/offer-data/selectors';
+import {setOffersByCity, setSortedOffers} from '../../store/offer-process/offer-process';
+import {getCurrentCity, getSortedOffers, getCurrentSortType, getOffersByCity} from '../../store/offer-process/selectors';
 
-type Props = {
-  cities: string[];
-  offers: Offer[];
-}
+const CITIES_LIST = Object.keys(CITIES);
 
-function MainPage({cities, offers}: Props): JSX.Element {
+function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offersByCity = useAppSelector((state) => state.offersByCity);
+  const offers = useAppSelector(getOffers);
 
-  const defaultOffersByCity = offers.filter((offer) => offer.city.name === currentCity);
-  const currentSortType = useAppSelector((state) => state.currentSortType);
+  const currentCity = useAppSelector(getCurrentCity);
+  const offersByCity = useAppSelector(getOffersByCity);
+
+  const currentSortType = useAppSelector(getCurrentSortType);
+  const sortedOffers = useAppSelector(getSortedOffers);
 
   useEffect(() => {
-    dispatch(setOffersByCity(currentCity, offers));
-  }, [dispatch, offers, currentCity]);
+    dispatch(setOffersByCity(offers));
+    dispatch(setSortedOffers(sortedOffers));
+  }, [dispatch, offers, sortedOffers, currentCity]);
 
   return (
     <div className="page page--gray page--main">
@@ -40,30 +40,37 @@ function MainPage({cities, offers}: Props): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
 
         <div className="tabs">
-          <CitiesList currentCity={currentCity} cities={cities} />
+          <CitiesList currentCity={currentCity} cities={CITIES_LIST} />
         </div>
 
         <div className="cities">
-          <div className="cities__places-container container">
-
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-
-              <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
-
-              <SortForm />
-
-              <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={currentSortType === SortType.Default ? defaultOffersByCity : offersByCity} />
-              </div>
-            </section>
-
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map offers={offersByCity}/>
+          { (offers.length > 0) ?
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
+                <SortForm />
+                <div className="cities__places-list places__list tabs__content">
+                  <OfferList offers={currentSortType === SortType.Default ? offersByCity : sortedOffers } />
+                </div>
               </section>
+
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map offers={offersByCity} city={currentCity} />
+                </section>
+              </div>
             </div>
-          </div>
+            :
+            <div className="cities__places-container cities__places-container--empty container">
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                </div>
+              </section>
+              <div className="cities__right-section"></div>
+            </div> }
         </div>
       </main>
     </div>

@@ -1,6 +1,10 @@
 import {Offer, OffersGrouppedByCity} from './types/offer';
 import {MAX_RATING} from './const';
 
+export function calcRatingStyle(ratingValue: number) {
+  return 100 * ratingValue / MAX_RATING;
+}
+
 export const getOffersGrouppedByCity = (offers: Offer[]) => {
   const result: OffersGrouppedByCity = {};
 
@@ -14,7 +18,3 @@ export const getOffersGrouppedByCity = (offers: Offer[]) => {
 
   return result;
 };
-
-export function calcRatingStyle(ratingValue: number) {
-  return 100 * ratingValue / MAX_RATING;
-}
