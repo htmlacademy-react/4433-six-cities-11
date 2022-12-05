@@ -7,7 +7,8 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import PrivateRoute from '../private-route/private-route';
+import FavoritePrivateRoute from '../favorite-private-route/favorite-private-route';
+import LoginPrivateRoute from '../login-private-route/login-private-route';
 import Loading from '../loading/loading';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
@@ -34,9 +35,9 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={authorizationStatus}>
+              <FavoritePrivateRoute authorizationStatus={authorizationStatus}>
                 <FavoritesPage />
-              </PrivateRoute>
+              </FavoritePrivateRoute>
             }
           />
           <Route
@@ -45,7 +46,11 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <LoginPrivateRoute authorizationStatus={authorizationStatus}>
+                <LoginPage />
+              </LoginPrivateRoute>
+            }
           />
           <Route
             path="*"
