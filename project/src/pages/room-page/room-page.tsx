@@ -10,7 +10,7 @@ import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus, AppRoute} from '../../const';
-import {fetchReviewAction, fetchOfferInfo, fetchNearOfferAction, fetchOfferStatusAction} from '../../store/api-actions';
+import {fetchReviewAction, fetchOfferInfo, fetchNearOfferAction, fetchOfferStatusAction, fetchFavoriteOfferAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
 import {getReviews, getNearbyOffer} from '../../store/offer-data/selectors';
@@ -46,6 +46,8 @@ function RoomPage(): JSX.Element {
         status: Number(!currentOffer.isFavorite),
         id: offerId,
       }));
+
+      dispatch(fetchFavoriteOfferAction());
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
     }

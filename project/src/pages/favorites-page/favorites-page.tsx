@@ -13,6 +13,8 @@ function FavoritesPage(): JSX.Element {
   const favoriteOffersByCity = getOffersGrouppedByCity(favoriteOffers);
   const offersGrouppedByCityArray = Object.entries(favoriteOffersByCity);
 
+  console.log(favoriteOffers);
+
   return (
     <div className="page">
       <Helmet>
