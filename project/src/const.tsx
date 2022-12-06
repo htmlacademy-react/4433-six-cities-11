@@ -81,5 +81,6 @@ export const CITIES: CityLocation = {
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const MIN_LENGTH_OF_REVIEW = 50;
+export const MAX_LENGTH_OF_REVIEW = 300;
 
 export const MAX_COUNT_OF_REVIEWS = 10;
