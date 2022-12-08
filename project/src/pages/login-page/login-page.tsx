@@ -5,7 +5,7 @@ import {useRef, FormEvent} from 'react';
 import Header from '../../components/header/header';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {RE, MIN_LENGTH_OF_PASSWORD, TIMEOUT_SHOW_ERROR} from '../../const';
+import {LOGIN_REGEX, MIN_LENGTH_OF_PASSWORD, TIMEOUT_SHOW_ERROR} from '../../const';
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ function LoginPage(): JSX.Element {
     if (loginRef.current !== null && passwordRef.current !== null) {
       const password = passwordRef.current.value;
 
-      if (password.length > MIN_LENGTH_OF_PASSWORD && RE.test(password)) {
+      if (password.length > MIN_LENGTH_OF_PASSWORD && LOGIN_REGEX.test(password)) {
         dispatch(loginAction({
           login: loginRef.current.value,
           password: password,

@@ -5,7 +5,6 @@ export enum AppRoute {
   Login = '/login',
   Main = '/',
   Room = '/offer',
-  NotFound = '/404',
 }
 
 export enum AuthorizationStatus {
@@ -85,5 +84,5 @@ export const MAX_LENGTH_OF_REVIEW = 300;
 
 export const MAX_COUNT_OF_REVIEWS = 10;
 
-export const RE = /^(?=.*[A-Za-z])(?=.*[0-9]).{2,}$/;
+export const LOGIN_REGEX = /^(?=.*[A-Za-z])(?=.*[0-9]).{2,}$/;
 export const MIN_LENGTH_OF_PASSWORD = 1;
