@@ -10,7 +10,7 @@ import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus, AppRoute} from '../../const';
-import {fetchReviewAction, fetchOfferInfo, fetchNearOfferAction, fetchOfferStatusAction, fetchFavoriteOfferAction} from '../../store/api-actions';
+import {fetchReviewsAction, fetchOfferInfo, fetchNearOffersAction, setOfferStatusAction, fetchFavoriteOffersAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
 import {getReviews, getNearbyOffer} from '../../store/offer-data/selectors';
@@ -29,9 +29,9 @@ function RoomPage(): JSX.Element {
   const isFavorite = currentOffer ? Number(currentOffer.isFavorite) : null;
 
   useEffect(() => {
-    dispatch(fetchNearOfferAction(offerId));
+    dispatch(fetchNearOffersAction(offerId));
     dispatch(fetchOfferInfo(offerId));
-    dispatch(fetchReviewAction(offerId));
+    dispatch(fetchReviewsAction(offerId));
   }, [dispatch, offerId, isFavorite]);
 
   const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
@@ -42,12 +42,10 @@ function RoomPage(): JSX.Element {
     }
 
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(fetchOfferStatusAction({
+      dispatch(setOfferStatusAction({
         status: Number(!currentOffer.isFavorite),
         id: offerId,
       }));
-
-      dispatch(fetchFavoriteOfferAction());
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
     }

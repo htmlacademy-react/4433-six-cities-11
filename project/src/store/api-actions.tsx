@@ -9,7 +9,7 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {Review, ReviewData} from '../types/review';
 
-export const fetchOfferAction = createAsyncThunk<Offer[], undefined, {
+export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
@@ -21,24 +21,24 @@ export const fetchOfferAction = createAsyncThunk<Offer[], undefined, {
   },
 );
 
-export const fetchFavoriteOfferAction = createAsyncThunk<Offer[], undefined, {
+export const fetchFavoriteOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchFavoriteOfferAction',
+  'data/fetchFavoriteOffersAction',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offer[]>(APIRoute.Favorite);
     return data;
   },
 );
 
-export const fetchNearOfferAction = createAsyncThunk<Offer[], number, {
+export const fetchNearOffersAction = createAsyncThunk<Offer[], number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchNearOfferAction',
+  'data/fetchNearOffersAction',
   async (id, {extra: api}) => {
     const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`);
     return data;
@@ -58,19 +58,19 @@ export const fetchOfferInfo = createAsyncThunk<Offer, number, {
   },
 );
 
-export const fetchOfferStatusAction = createAsyncThunk<Offer, OfferStatusData, {
+export const setOfferStatusAction = createAsyncThunk<Offer, OfferStatusData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchOfferStatusAction',
+  'data/setOfferStatusAction',
   async ({status, id}, {extra: api}) => {
     const {data} = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${status}`, {id, status});
     return data;
   },
 );
 
-export const fetchReviewAction = createAsyncThunk<Review[], number, {
+export const fetchReviewsAction = createAsyncThunk<Review[], number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -83,7 +83,7 @@ export const fetchReviewAction = createAsyncThunk<Review[], number, {
   },
 );
 
-export const postReviewAction = createAsyncThunk<Review[], ReviewData, {
+export const addReviewAction = createAsyncThunk<Review[], ReviewData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

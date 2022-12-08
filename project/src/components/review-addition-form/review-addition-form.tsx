@@ -1,6 +1,6 @@
 import {useState, useRef, ChangeEvent, FormEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {postReviewAction} from '../../store/api-actions';
+import {addReviewAction} from '../../store/api-actions';
 import {getUserData} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
 import {MIN_LENGTH_OF_REVIEW, MAX_LENGTH_OF_REVIEW} from '../../const';
@@ -30,7 +30,7 @@ function ReviewAdditioForm(): JSX.Element {
     }
 
     if (reviewRef.current !== null) {
-      dispatch(postReviewAction({
+      dispatch(addReviewAction({
         id: currentOffer.id,
         comment: reviewRef.current.value,
         rating: Number(formData.rating),

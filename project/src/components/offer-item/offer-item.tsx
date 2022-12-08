@@ -7,7 +7,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {redirectToRoute} from '../../store/action';
 import {setSelectedOffer} from '../../store/offer-process/offer-process';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {fetchOfferStatusAction} from '../../store/api-actions';
+import {setOfferStatusAction} from '../../store/api-actions';
 import {getSelectedOfferId} from '../../store/offer-process/selectors';
 
 type Props = {
@@ -31,7 +31,7 @@ function OfferItem({offer, className = 'cities__card', imageWrapperClassName = '
     evt.preventDefault();
 
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(fetchOfferStatusAction({
+      dispatch(setOfferStatusAction({
         status: Number(!offer.isFavorite),
         id: selectedOfferId,
       }));
