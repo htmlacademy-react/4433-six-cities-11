@@ -1,10 +1,21 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, MAX_COUNT_OF_REVIEWS} from '../../const';
 import {sortReviews} from '../../util';
-import {OfferData} from '../../types/state';
 import {fetchOffersAction, fetchNearOffersAction, fetchOfferInfo, fetchReviewsAction, addReviewAction, fetchFavoriteOffersAction, setOfferStatusAction} from '../api-actions';
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
 
-const initialState: OfferData = {
+type InitialState = {
+  offers: Offer[];
+  isOffersLoading: boolean;
+  currentOffer: null | Offer;
+  hasError: boolean;
+  reviews: Review[];
+  nearOffers: Offer[];
+  favoriteOffers: Offer[];
+};
+
+const initialState: InitialState = {
   offers: [],
   currentOffer: null,
   nearOffers: [],

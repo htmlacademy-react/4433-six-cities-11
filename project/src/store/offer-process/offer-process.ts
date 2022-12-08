@@ -1,9 +1,16 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace, DEFAULT_CITY, SortType} from '../../const';
-import {OfferProcess} from '../../types/state';
 import {Offer} from '../../types/offer';
 
-const initialState: OfferProcess = {
+export type InitialState = {
+  currentCity: string;
+  offersByCity: Offer[];
+  sortedOffers: Offer[];
+  currentSortType: SortType;
+  selectedOfferId: number;
+};
+
+const initialState: InitialState = {
   currentCity: DEFAULT_CITY,
   offersByCity: [],
   sortedOffers: [],
