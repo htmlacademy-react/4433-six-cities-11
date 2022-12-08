@@ -33,7 +33,7 @@ function RoomPage(): JSX.Element {
     dispatch(fetchReviewsAction(offerId));
   }, [dispatch, offerId]);
 
-  const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
+  const handleFavoriteButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
     if (currentOffer === null) {
@@ -82,9 +82,9 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {currentOffer.title}
                 </h1>
-                <button className={`property__bookmark-button button ${currentOffer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button" onClick={handleButtonClick}>
+                <button className={`property__bookmark-button button ${currentOffer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button" onClick={handleFavoriteButtonClick}>
                   <svg className="place-card__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
+                    <use xlinkHref="#icon-bookmark" />
                   </svg>
                   <span className="visually-hidden">${currentOffer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
                 </button>

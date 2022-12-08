@@ -27,7 +27,7 @@ function OfferItem({offer, className = 'cities__card', imageWrapperClassName = '
     dispatch(setSelectedOffer(id));
   }
 
-  const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
+  const handleFavoriteButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -60,9 +60,9 @@ function OfferItem({offer, className = 'cities__card', imageWrapperClassName = '
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;month</span>
           </div>
-          <button className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button" onClick={handleButtonClick}>
+          <button className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button" onClick={handleFavoriteButtonClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
+              <use xlinkHref="#icon-bookmark" />
             </svg>
             <span className="visually-hidden">${offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
           </button>
