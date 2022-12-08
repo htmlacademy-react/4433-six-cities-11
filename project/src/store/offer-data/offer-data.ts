@@ -56,14 +56,12 @@ export const offerData = createSlice({
       })
       // favorite offers
       .addCase(fetchFavoriteOffersAction.pending, (state) => {
-        state.isOffersLoading = true;
         state.hasError = false;
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
-        state.isOffersLoading = false;
         state.favoriteOffers = action.payload;
       })
-      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
+      .addCase(fetchFavoriteOffersAction.rejected, (state, action) => {
         state.hasError = true;
       })
       // favorite status
