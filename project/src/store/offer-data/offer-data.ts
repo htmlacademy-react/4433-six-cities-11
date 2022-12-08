@@ -55,6 +55,26 @@ export const offerData = createSlice({
       .addCase(fetchFavoriteOffersAction.rejected, (state) => {
         state.hasError = true;
       })
+      // favorite status
+      .addCase(setOfferStatusAction.fulfilled, (state, action) => {
+        state.currentOffer = action.payload;
+
+        const offerItem = state.offers.find((offer) => offer.id === action.payload.id);
+        if (offerItem) {
+          offerItem.isFavorite = action.payload.isFavorite;
+        }
+
+        const nearOfferItem = state.nearOffers.find((offer) => offer.id === action.payload.id);
+        if (nearOfferItem) {
+          nearOfferItem.isFavorite = action.payload.isFavorite;
+        }
+
+        if (action.payload.isFavorite) {
+          state.favoriteOffers.push(action.payload);
+        } else {
+          state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
+        }
+      })
       // current offer
       .addCase(fetchOfferInfo.pending, (state) => {
         state.hasError = false;
@@ -65,10 +85,7 @@ export const offerData = createSlice({
       .addCase(fetchOfferInfo.rejected, (state) => {
         state.hasError = true;
       })
-      .addCase(setOfferStatusAction.fulfilled, (state, action) => {
-        state.currentOffer = action.payload;
-      })
-      // load reviews
+      // reviews
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         const reviewList = sortReviews(action.payload);
         state.reviews = reviewList.length > MAX_COUNT_OF_REVIEWS ? reviewList.slice(0, MAX_COUNT_OF_REVIEWS) : reviewList;
@@ -77,7 +94,7 @@ export const offerData = createSlice({
       .addCase(fetchReviewsAction.rejected, (state) => {
         state.hasError = true;
       })
-      // post review
+      // add review
       .addCase(addReviewAction.fulfilled, (state, action) => {
         const reviewList = sortReviews(action.payload);
         state.reviews = reviewList.length > MAX_COUNT_OF_REVIEWS ? reviewList.slice(0, MAX_COUNT_OF_REVIEWS) : reviewList;

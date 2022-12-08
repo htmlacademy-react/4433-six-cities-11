@@ -10,7 +10,7 @@ import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
 import {AuthorizationStatus, AppRoute} from '../../const';
-import {fetchReviewsAction, fetchOfferInfo, fetchNearOffersAction, setOfferStatusAction, fetchFavoriteOffersAction} from '../../store/api-actions';
+import {fetchReviewsAction, fetchOfferInfo, fetchNearOffersAction, setOfferStatusAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
 import {getReviews, getNearbyOffer} from '../../store/offer-data/selectors';
@@ -26,13 +26,12 @@ function RoomPage(): JSX.Element {
   const currentOffer = useAppSelector(getCurrentOffer);
   const reviewsOfCurrentOffer = useAppSelector(getReviews);
   const nearOffers = useAppSelector(getNearbyOffer);
-  const isFavorite = currentOffer ? Number(currentOffer.isFavorite) : null;
 
   useEffect(() => {
     dispatch(fetchNearOffersAction(offerId));
     dispatch(fetchOfferInfo(offerId));
     dispatch(fetchReviewsAction(offerId));
-  }, [dispatch, offerId, isFavorite]);
+  }, [dispatch, offerId]);
 
   const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
@@ -52,7 +51,7 @@ function RoomPage(): JSX.Element {
   };
 
   if(!currentOffer) {
-    return <div>Loading</div>;
+    return <div></div>;
   }
 
   return (
