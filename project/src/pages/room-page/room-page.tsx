@@ -51,7 +51,7 @@ function RoomPage(): JSX.Element {
   };
 
   if(!currentOffer) {
-    return <div></div>;
+    return <div />;
   }
 
   return (
@@ -92,7 +92,7 @@ function RoomPage(): JSX.Element {
 
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: `${calcRatingStyle(currentOffer.rating)}%` }}></span>
+                  <span style={{ width: `${calcRatingStyle(currentOffer.rating)}%` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{currentOffer.rating}</span>

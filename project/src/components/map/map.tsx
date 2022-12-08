@@ -51,7 +51,7 @@ function Map({offers, city}: Props): JSX.Element {
     }
   }, [map, offers, city, selectedOfferId]);
 
-  return <div style={{height: '100%'}} ref={mapRef}></div>;
+  return <div style={{height: '100%'}} ref={mapRef} />;
 }
 
 export default memo(Map);
