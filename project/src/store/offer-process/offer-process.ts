@@ -1,11 +1,16 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace, DEFAULT_CITY, SortType} from '../../const';
-import {OfferProcess} from '../../types/state';
 import {Offer} from '../../types/offer';
 
-const initialState: OfferProcess = {
+export type InitialState = {
+  currentCity: string;
+  sortedOffers: Offer[];
+  currentSortType: SortType;
+  selectedOfferId: number;
+};
+
+const initialState: InitialState = {
   currentCity: DEFAULT_CITY,
-  offersByCity: [],
   sortedOffers: [],
   selectedOfferId: 1,
   currentSortType: SortType.Default,
@@ -17,9 +22,6 @@ export const offerProcess = createSlice({
   reducers: {
     setCurrentCity: (state, action: PayloadAction<string>) => {
       state.currentCity = action.payload;
-    },
-    setOffersByCity: (state, action: PayloadAction<Offer[]>) => {
-      state.offersByCity = action.payload;
     },
     setSelectedOffer: (state, action: PayloadAction<number>) => {
       state.selectedOfferId = action.payload;
@@ -33,4 +35,4 @@ export const offerProcess = createSlice({
   },
 });
 
-export const {setCurrentCity, setOffersByCity, setSelectedOffer, setCurrentSortType, setSortedOffers} = offerProcess.actions;
+export const {setCurrentCity, setSelectedOffer, setCurrentSortType, setSortedOffers} = offerProcess.actions;

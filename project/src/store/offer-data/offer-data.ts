@@ -1,9 +1,21 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace} from '../../const';
-import {OfferData} from '../../types/state';
-import {fetchOfferAction, fetchNearOfferAction, fetchOfferInfo, fetchReviewAction, postReviewAction, fetchFavoriteOfferAction, fetchOfferStatusAction} from '../api-actions';
+import {NameSpace, MAX_COUNT_OF_REVIEWS} from '../../const';
+import {sortReviews} from '../../util';
+import {fetchOffersAction, fetchNearOffersAction, fetchOfferInfo, fetchReviewsAction, addReviewAction, fetchFavoriteOffersAction, setOfferStatusAction} from '../api-actions';
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
 
-const initialState: OfferData = {
+type InitialState = {
+  offers: Offer[];
+  isOffersLoading: boolean;
+  currentOffer: null | Offer;
+  hasError: boolean;
+  reviews: Review[];
+  nearOffers: Offer[];
+  favoriteOffers: Offer[];
+};
+
+const initialState: InitialState = {
   offers: [],
   currentOffer: null,
   nearOffers: [],
@@ -20,39 +32,57 @@ export const offerData = createSlice({
   extraReducers(builder) {
     builder
       // all offers
-      .addCase(fetchOfferAction.pending, (state) => {
+      .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersLoading = true;
         state.hasError = false;
       })
-      .addCase(fetchOfferAction.fulfilled, (state, action) => {
+      .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isOffersLoading = false;
       })
-      .addCase(fetchOfferAction.rejected, (state) => {
+      .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersLoading = false;
         state.hasError = true;
       })
       // near offers
-      .addCase(fetchNearOfferAction.pending, (state) => {
+      .addCase(fetchNearOffersAction.pending, (state) => {
         state.hasError = false;
       })
-      .addCase(fetchNearOfferAction.fulfilled, (state, action) => {
+      .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
         state.nearOffers = action.payload;
       })
-      .addCase(fetchNearOfferAction.rejected, (state) => {
+      .addCase(fetchNearOffersAction.rejected, (state) => {
         state.hasError = true;
       })
       // favorite offers
-      .addCase(fetchFavoriteOfferAction.pending, (state) => {
-        state.isOffersLoading = true;
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
         state.hasError = false;
       })
-      .addCase(fetchFavoriteOfferAction.fulfilled, (state, action) => {
-        state.isOffersLoading = false;
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
       })
-      .addCase(fetchFavoriteOfferAction.rejected, (state) => {
+      .addCase(fetchFavoriteOffersAction.rejected, (state, action) => {
         state.hasError = true;
+      })
+      // favorite status
+      .addCase(setOfferStatusAction.fulfilled, (state, action) => {
+        state.currentOffer = action.payload;
+
+        const offerItem = state.offers.find((offer) => offer.id === action.payload.id);
+        if (offerItem) {
+          offerItem.isFavorite = action.payload.isFavorite;
+        }
+
+        const nearOfferItem = state.nearOffers.find((offer) => offer.id === action.payload.id);
+        if (nearOfferItem) {
+          nearOfferItem.isFavorite = action.payload.isFavorite;
+        }
+
+        if (action.payload.isFavorite) {
+          state.favoriteOffers.push(action.payload);
+        } else {
+          state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
+        }
       })
       // current offer
       .addCase(fetchOfferInfo.pending, (state) => {
@@ -64,23 +94,22 @@ export const offerData = createSlice({
       .addCase(fetchOfferInfo.rejected, (state) => {
         state.hasError = true;
       })
-      .addCase(fetchOfferStatusAction.fulfilled, (state, action) => {
-        state.currentOffer = action.payload;
-      })
-      // load reviews
-      .addCase(fetchReviewAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+      // reviews
+      .addCase(fetchReviewsAction.fulfilled, (state, action) => {
+        const reviewList = sortReviews(action.payload);
+        state.reviews = reviewList.length > MAX_COUNT_OF_REVIEWS ? reviewList.slice(0, MAX_COUNT_OF_REVIEWS) : reviewList;
         state.hasError = false;
       })
-      .addCase(fetchReviewAction.rejected, (state) => {
+      .addCase(fetchReviewsAction.rejected, (state) => {
         state.hasError = true;
       })
-      // post review
-      .addCase(postReviewAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+      // add review
+      .addCase(addReviewAction.fulfilled, (state, action) => {
+        const reviewList = sortReviews(action.payload);
+        state.reviews = reviewList.length > MAX_COUNT_OF_REVIEWS ? reviewList.slice(0, MAX_COUNT_OF_REVIEWS) : reviewList;
         state.hasError = false;
       })
-      .addCase(postReviewAction.rejected, (state) => {
+      .addCase(addReviewAction.rejected, (state) => {
         state.hasError = true;
       });
   }

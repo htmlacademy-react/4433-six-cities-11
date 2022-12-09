@@ -3,7 +3,7 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
-import useMap from '../../hooks/useMap/useMap';
+import useMap from '../../hooks/use-map/use-map';
 import {useAppSelector} from '../../hooks';
 import {Offer} from '../../types/offer';
 import {getSelectedOfferId} from '../../store/offer-process/selectors';
@@ -46,12 +46,12 @@ function Map({offers, city}: Props): JSX.Element {
           )
           .addTo(map);
 
-        map.flyTo({lat: offer.city.location.latitude, lng: offer.city.location.longitude}, offer.city.location.zoom);
+        map.setView({lat: offer.city.location.latitude, lng: offer.city.location.longitude}, offer.city.location.zoom);
       });
     }
   }, [map, offers, city, selectedOfferId]);
 
-  return <div style={{height: '100%'}} ref={mapRef}></div>;
+  return <div style={{height: '100%'}} ref={mapRef} />;
 }
 
 export default memo(Map);

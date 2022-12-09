@@ -10,8 +10,8 @@ import {getFavoriteOffers} from '../../store/offer-data/selectors';
 
 function FavoritesPage(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
-  const favoriteOffersByCity = getOffersGrouppedByCity(favoriteOffers);
-  const offersGrouppedByCityArray = Object.entries(favoriteOffersByCity);
+  const favoriteCityOffers = getOffersGrouppedByCity(favoriteOffers);
+  const offersGrouppedByCityArray = Object.entries(favoriteCityOffers);
 
   return (
     <div className="page">

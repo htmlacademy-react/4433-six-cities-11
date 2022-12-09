@@ -1,29 +1,39 @@
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
 import Header from '../../components/header/header';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {AuthData} from '../../types/auth-data';
+import {LOGIN_REGEXP, MIN_LENGTH_OF_PASSWORD, TIMEOUT_SHOW_ERROR} from '../../const';
 
 function LoginPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const dispatch = useAppDispatch();
-
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
-  };
+  const [isPasswordValidate, setPasswordValidate] = useState(false);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setPasswordValidate(false);
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+      const password = passwordRef.current.value;
+
+      if (password.length > MIN_LENGTH_OF_PASSWORD && LOGIN_REGEXP.test(password)) {
+        dispatch(loginAction({
+          login: loginRef.current.value,
+          password: password,
+        }));
+      } else {
+        setPasswordValidate(true);
+        setTimeout(
+          () => (setPasswordValidate(false)),
+          TIMEOUT_SHOW_ERROR,
+        );
+      }
     }
   };
 
@@ -46,7 +56,7 @@ function LoginPage(): JSX.Element {
                 <input
                   ref={loginRef}
                   className="login__input form__input"
-                  type="login"
+                  type="email"
                   name="login"
                   id="login"
                   placeholder="Email"
@@ -66,6 +76,11 @@ function LoginPage(): JSX.Element {
                   required
                 />
               </div>
+
+              <div className="login__input-wrapper form__input-wrapper">
+                { isPasswordValidate ? <div>Invalid password</div> : ''}
+              </div>
+
               <button className="login__submit form__submit button" type="submit">
                 Sign in
               </button>

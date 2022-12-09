@@ -6,7 +6,7 @@ type Props = {
   children: JSX.Element;
 }
 
-function PrivateRoute(props: Props): JSX.Element {
+function FavoritePrivateRoute(props: Props): JSX.Element {
   const {authorizationStatus, children} = props;
 
   return (
@@ -16,4 +16,4 @@ function PrivateRoute(props: Props): JSX.Element {
   );
 }
 
-export default PrivateRoute;
+export default FavoritePrivateRoute;

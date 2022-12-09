@@ -1,12 +1,11 @@
 import {useState} from 'react';
-import {setCurrentSortType, setOffersByCity} from '../../store/offer-process/offer-process';
+import {setCurrentSortType} from '../../store/offer-process/offer-process';
 import {SortType} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getCurrentSortType, getOffersByCity} from '../../store/offer-process/selectors';
+import {getCurrentSortType} from '../../store/offer-process/selectors';
 
 function SortForm(): JSX.Element {
   const currentSortType = useAppSelector(getCurrentSortType);
-  const offersByCity = useAppSelector(getOffersByCity);
   const dispatch = useAppDispatch();
 
   const [isActive, setActive] = useState<boolean>(false);
@@ -18,7 +17,7 @@ function SortForm(): JSX.Element {
       <span tabIndex={0} className="places__sorting-type" onClick={() => setActive(!isActive)}>
         {currentSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="#icon-arrow-select"></use>
+          <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
 
@@ -33,7 +32,6 @@ function SortForm(): JSX.Element {
             tabIndex={0}
             onClick={() => {
               dispatch(setCurrentSortType(type));
-              dispatch(setOffersByCity(offersByCity));
             }}
           >
             {type}
