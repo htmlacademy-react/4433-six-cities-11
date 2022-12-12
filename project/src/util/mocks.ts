@@ -1,6 +1,6 @@
 import {lorem, datatype, address, image} from 'faker';
 import {Offer} from '../types/offer';
-import {Review} from '../types/review';
+import {Review, ReviewData} from '../types/review';
 
 export const makeFakeOffer = (id: number): Offer => ({
   bedrooms: datatype.number(10),
@@ -63,7 +63,15 @@ export const makeFakeReview = (id: number): Review => ({
   }
 } as Review);
 
+export const makeFakeReviewData = (id: number): ReviewData => ({
+  id: id,
+  comment: lorem.paragraph(),
+  rating: datatype.number(5),
+} as ReviewData);
+
 export const fakeReview = makeFakeReview(datatype.number());
+
+export const fakeReviewData = makeFakeReviewData(datatype.number());
 
 export const makeFakeReviews = (count: number): Review[] => {
   const reviews = [];

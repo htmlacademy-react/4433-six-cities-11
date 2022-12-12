@@ -1,9 +1,9 @@
 import {offerData} from './offer-data';
 import {InitialState as OfferData} from './offer-data';
-import {fetchOffersAction, fetchNearOffersAction, fetchFavoriteOffersAction, fetchOfferInfo, fetchReviewsAction, addReviewAction, setOfferStatusAction} from '../api-actions';
+import {fetchOffersAction, fetchNearOffersAction, fetchFavoriteOffersAction, fetchOfferInfo, fetchReviewsAction, addReviewAction, /* setOfferStatusAction */} from '../api-actions';
 import {makeFakeOffers, makeFakeReviews, fakeOffer, fakeReview} from '../../util/mocks';
 import {MAX_COUNT_OF_REVIEWS} from '../../const';
-import {Offer} from '../../types/offer';
+// import {Offer} from '../../types/offer';
 
 const initialState = {
   offers: [],
@@ -22,17 +22,17 @@ const reviews = makeFakeReviews(5);
 const currentOffer = fakeOffer;
 const newReview = fakeReview;
 
-const updateOfferList = (offersList: Offer[], favoriteOffer: Offer) => {
-  const updatedOffers = offersList.map((offer) => {
-    if (offer.id !== favoriteOffer.id) {
-      return offer;
-    }
+// const updateOfferList = (offersList: Offer[], favoriteOffer: Offer) => {
+//   const updatedOffers = offersList.map((offer) => {
+//     if (offer.id !== favoriteOffer.id) {
+//       return offer;
+//     }
 
-    return favoriteOffer;
-  });
+//     return favoriteOffer;
+//   });
 
-  return updatedOffers;
-};
+//   return updatedOffers;
+// };
 
 describe('Reducer: offerData', () => {
   let state: OfferData;
@@ -115,4 +115,3 @@ describe('Reducer: offerData', () => {
   //     });
   // });
 });
-
