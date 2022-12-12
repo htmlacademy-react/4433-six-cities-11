@@ -5,7 +5,7 @@ import {fetchOffersAction, fetchNearOffersAction, fetchOfferInfo, fetchReviewsAc
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 
-type InitialState = {
+export type InitialState = {
   offers: Offer[];
   isOffersLoading: boolean;
   currentOffer: null | Offer;
