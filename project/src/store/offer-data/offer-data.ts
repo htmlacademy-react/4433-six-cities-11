@@ -93,10 +93,6 @@ export const offerData = createSlice({
 
         const offerImages = state.currentOffer.images;
         state.currentOffer.images = offerImages.length > MAX_COUNT_OF_OFFER_IMAGES ? offerImages.slice(0, MAX_COUNT_OF_OFFER_IMAGES) : offerImages;
-
-        if (offerImages.length > 6) {
-          offerImages.slice(1, 6);
-        }
       })
       .addCase(fetchOfferInfo.rejected, (state) => {
         state.hasError = true;
