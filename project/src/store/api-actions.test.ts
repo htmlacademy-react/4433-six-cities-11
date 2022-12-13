@@ -22,7 +22,7 @@ import {
 import {makeFakeOffers, makeFakeReviews, fakeOffer, fakeReviewData} from '../util/mocks';
 
 const mockOffer = fakeOffer;
-const mockComments = makeFakeReviews(3);
+const mockComments = makeFakeReviews();
 
 describe('Async actions', () => {
   const api = createAPI();
@@ -97,7 +97,7 @@ describe('Async actions', () => {
   });
 
   it('should dispatch offers when GET /hotels', async () => {
-    const mockOffers = makeFakeOffers(16);
+    const mockOffers = makeFakeOffers();
     mockAPI
       .onGet(APIRoute.Offers)
       .reply(200, mockOffers);
@@ -115,7 +115,7 @@ describe('Async actions', () => {
   });
 
   it('should dispatch nears offers when GET /hotels/id/nearby', async () => {
-    const mockNearOffers = makeFakeOffers(4);
+    const mockNearOffers = makeFakeOffers();
 
     mockAPI
       .onGet(`${APIRoute.Offers}/${mockOffer.id}/nearby`)
@@ -151,7 +151,7 @@ describe('Async actions', () => {
   });
 
   it('should dispatch favorite offers when GET /favorite', async () => {
-    const mockFavoriteOffers = makeFakeOffers(16);
+    const mockFavoriteOffers = makeFakeOffers();
     mockAPI
       .onGet(APIRoute.Favorite)
       .reply(200, mockFavoriteOffers);
@@ -188,7 +188,7 @@ describe('Async actions', () => {
   });
 
   it('should dispatch reviews when GET /comments/id', async () => {
-    const mockReviews = makeFakeReviews(5);
+    const mockReviews = makeFakeReviews();
 
     mockAPI
       .onGet(`${APIRoute.Reviews}/${mockOffer.id}`)

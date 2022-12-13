@@ -15,10 +15,10 @@ const initialState = {
   hasError: false
 };
 
-const offers = makeFakeOffers(80);
-const nearOffers = makeFakeOffers(3);
-const favoriteOffers = makeFakeOffers(5);
-const reviews = makeFakeReviews(5);
+const offers = makeFakeOffers();
+const nearOffers = makeFakeOffers();
+const favoriteOffers = makeFakeOffers();
+const reviews = makeFakeReviews();
 const currentOffer = fakeOffer;
 const newReview = fakeReview;
 

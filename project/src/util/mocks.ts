@@ -39,10 +39,10 @@ export const makeFakeOffer = (id: number): Offer => ({
 
 export const fakeOffer = makeFakeOffer(datatype.number());
 
-export const makeFakeOffers = (count: number): Offer[] => {
+export const makeFakeOffers = (): Offer[] => {
   const offers = [];
 
-  for (let i = 0; i < datatype.number(count); i++) {
+  for (let i = 0; i < datatype.number({min: 1, max: 10}); i++) {
     offers.push(makeFakeOffer(i));
   }
 
@@ -73,12 +73,21 @@ export const fakeReview = makeFakeReview(datatype.number());
 
 export const fakeReviewData = makeFakeReviewData(datatype.number());
 
-export const makeFakeReviews = (count: number): Review[] => {
+export const makeFakeReviews = (): Review[] => {
   const reviews = [];
 
-  for (let i = 0; i < datatype.number(count); i++) {
+  for (let i = 0; i < datatype.number({min: 1, max: 10}); i++) {
     reviews.push(makeFakeReview(i));
   }
 
   return reviews;
+};
+
+export const mockDefaultCityInfo = {
+  'name': 'Paris',
+  'location': {
+    'latitude': 48.85661,
+    'longitude': 2.351499,
+    'zoom': 13
+  },
 };

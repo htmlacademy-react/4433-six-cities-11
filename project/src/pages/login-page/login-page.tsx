@@ -60,6 +60,7 @@ function LoginPage(): JSX.Element {
                   name="login"
                   id="login"
                   placeholder="Email"
+                  data-testid="login"
                   required
                 />
               </div>
@@ -73,6 +74,7 @@ function LoginPage(): JSX.Element {
                   name="password"
                   id="password"
                   placeholder="Password"
+                  data-testid="password"
                   required
                 />
               </div>
