@@ -43,7 +43,7 @@ function RoomPage(): JSX.Element {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(setOfferStatusAction({
         status: Number(!currentOffer.isFavorite),
-        id: offerId,
+        id: currentOffer.id,
       }));
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
