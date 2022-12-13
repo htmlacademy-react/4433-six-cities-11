@@ -103,10 +103,10 @@ function RoomPage(): JSX.Element {
                   {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {currentOffer.bedrooms} Bedrooms
+                  {currentOffer.bedrooms} { currentOffer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms' }
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {currentOffer.maxAdults} adults
+                  Max {currentOffer.maxAdults} {currentOffer.maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
 
