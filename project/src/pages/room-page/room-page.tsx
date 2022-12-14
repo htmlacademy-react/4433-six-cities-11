@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import ReviewList from '../../components/review-list/review-list';
-import AddReviewForm from '../../components/review-addition-form/review-addition-form';
+import AddReviewForm from '../../components/add-review-form/add-review-form';
 import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
