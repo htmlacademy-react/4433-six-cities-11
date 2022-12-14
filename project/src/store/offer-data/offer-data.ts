@@ -67,6 +67,8 @@ export const offerData = createSlice({
       // favorite status
       .addCase(setOfferStatusAction.fulfilled, (state, action) => {
         state.currentOffer = action.payload;
+        const offerImages = state.currentOffer.images;
+        state.currentOffer.images = offerImages.length > MAX_COUNT_OF_OFFER_IMAGES ? offerImages.slice(0, MAX_COUNT_OF_OFFER_IMAGES) : offerImages;
 
         const offerItem = state.offers.find((offer) => offer.id === action.payload.id);
         if (offerItem) {
