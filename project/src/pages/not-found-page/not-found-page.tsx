@@ -1,5 +1,6 @@
+import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 
 function NotFoundPage(): JSX.Element {
   return (
@@ -7,17 +8,16 @@ function NotFoundPage(): JSX.Element {
       <Helmet>
         <title>Page not found</title>
       </Helmet>
-
-      <Header />
-
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">404</h1>
-            <h1 className="login__title">Not found</h1>
+            <h1 className="login__title">404. Page not found</h1>
+            <Link to="/">Вернуться на главную</Link>
           </section>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

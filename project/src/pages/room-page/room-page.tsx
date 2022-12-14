@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import ReviewList from '../../components/review-list/review-list';
-import ReviewAdditioForm from '../../components/review-addition-form/review-addition-form';
+import AddReviewForm from '../../components/add-review-form/add-review-form';
 import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
@@ -43,7 +43,7 @@ function RoomPage(): JSX.Element {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(setOfferStatusAction({
         status: Number(!currentOffer.isFavorite),
-        id: offerId,
+        id: currentOffer.id,
       }));
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
@@ -103,10 +103,10 @@ function RoomPage(): JSX.Element {
                   {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {currentOffer.bedrooms} Bedrooms
+                  {currentOffer.bedrooms} { currentOffer.bedrooms === 1 ? 'Bedroom' : 'Bedrooms' }
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {currentOffer.maxAdults} adults
+                  Max {currentOffer.maxAdults} {currentOffer.maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
 
@@ -139,7 +139,7 @@ function RoomPage(): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsOfCurrentOffer.length}</span></h2>
                 <ReviewList reviews={reviewsOfCurrentOffer} />
-                { authorizationStatus === AuthorizationStatus.Auth ? <ReviewAdditioForm /> : '' }
+                { authorizationStatus === AuthorizationStatus.Auth ? <AddReviewForm /> : '' }
               </section>
             </div>
           </div>

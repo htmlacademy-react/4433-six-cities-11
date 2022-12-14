@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace, MAX_COUNT_OF_REVIEWS} from '../../const';
+import {NameSpace, MAX_COUNT_OF_REVIEWS, MAX_COUNT_OF_OFFER_IMAGES} from '../../const';
 import {sortReviews} from '../../util';
 import {fetchOffersAction, fetchNearOffersAction, fetchOfferInfo, fetchReviewsAction, addReviewAction, fetchFavoriteOffersAction, setOfferStatusAction} from '../api-actions';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 
-type InitialState = {
+export type InitialState = {
   offers: Offer[];
   isOffersLoading: boolean;
   currentOffer: null | Offer;
@@ -90,6 +90,9 @@ export const offerData = createSlice({
       })
       .addCase(fetchOfferInfo.fulfilled, (state, action) => {
         state.currentOffer = action.payload;
+
+        const offerImages = state.currentOffer.images;
+        state.currentOffer.images = offerImages.length > MAX_COUNT_OF_OFFER_IMAGES ? offerImages.slice(0, MAX_COUNT_OF_OFFER_IMAGES) : offerImages;
       })
       .addCase(fetchOfferInfo.rejected, (state) => {
         state.hasError = true;

@@ -3,14 +3,14 @@ import {NameSpace, AuthorizationStatus} from '../../const';
 import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 import {UserData} from '../../types/user-data';
 
-type InitialState = {
+export type InitialState = {
   authorizationStatus: AuthorizationStatus;
-  userData: null | UserData;
+  userData: undefined | UserData;
 };
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: null
+  userData: undefined
 };
 
 export const userProcess = createSlice({
