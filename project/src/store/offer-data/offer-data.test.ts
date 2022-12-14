@@ -3,7 +3,6 @@ import {InitialState as OfferData} from './offer-data';
 import {fetchOffersAction, fetchNearOffersAction, fetchFavoriteOffersAction, fetchOfferInfo, fetchReviewsAction, addReviewAction, /* setOfferStatusAction */} from '../api-actions';
 import {makeFakeOffers, makeFakeReviews, fakeOffer, fakeReview} from '../../util/mocks';
 import {MAX_COUNT_OF_REVIEWS} from '../../const';
-// import {Offer} from '../../types/offer';
 
 const initialState = {
   offers: [],
@@ -21,18 +20,6 @@ const favoriteOffers = makeFakeOffers();
 const reviews = makeFakeReviews();
 const currentOffer = fakeOffer;
 const newReview = fakeReview;
-
-// const updateOfferList = (offersList: Offer[], favoriteOffer: Offer) => {
-//   const updatedOffers = offersList.map((offer) => {
-//     if (offer.id !== favoriteOffer.id) {
-//       return offer;
-//     }
-
-//     return favoriteOffer;
-//   });
-
-//   return updatedOffers;
-// };
 
 describe('Reducer: offerData', () => {
   let state: OfferData;
@@ -88,30 +75,4 @@ describe('Reducer: offerData', () => {
     expect(offerData.reducer(state, {type: addReviewAction.fulfilled.type, payload: updatedReviews}))
       .toEqual({...state, reviews: updatedReviews, hasError: false});
   });
-
-
-  // it('should update offers, favoriteOffers, nearOffers after change status of current offer', () => {
-  //   state = {
-  //     ...initialState,
-  //     offers: offers,
-  //     nearOffers: nearOffers,
-  //     favoriteOffers: favoriteOffers,
-  //     currentOffer: currentOffer
-  //   };
-
-  //   const favoriteOffer = {...currentOffer, isFavorite: !currentOffer.isFavorite};
-
-  //   const updatedOffers = updateOfferList(offers, favoriteOffer);
-  //   const updatedNearOffers = updateOfferList(nearOffers, favoriteOffer);
-  //   const updatedFavoriteOffers = updateOfferList(favoriteOffers, favoriteOffer);
-
-  //   expect(offerData.reducer(state, {type: setOfferStatusAction.fulfilled.type, payload: reviews}))
-  //     .toEqual({
-  //       ...state,
-  //       offers: updatedOffers,
-  //       nearOffers: updatedNearOffers,
-  //       favoriteOffers: updatedFavoriteOffers,
-  //       currentOffer: favoriteOffer
-  //     });
-  // });
 });

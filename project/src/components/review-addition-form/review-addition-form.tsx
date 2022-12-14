@@ -5,7 +5,7 @@ import {getUserData} from '../../store/user-process/selectors';
 import {getCurrentOffer} from '../../store/offer-data/selectors';
 import {MIN_LENGTH_OF_REVIEW, MAX_LENGTH_OF_REVIEW} from '../../const';
 
-function ReviewAdditioForm(): JSX.Element {
+function AddReviewForm(): JSX.Element {
   const author = useAppSelector(getUserData);
   const currentOffer = useAppSelector(getCurrentOffer);
   const reviewRef = useRef<HTMLTextAreaElement | null>(null);
@@ -19,7 +19,7 @@ function ReviewAdditioForm(): JSX.Element {
 
   const [formDisabled, setFormDisabled] = useState(false);
 
-  const ratingChangeHandle = (evt: ChangeEvent<HTMLInputElement>) => setFormData({...formData, rating: evt.target.value});
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => setFormData({...formData, rating: evt.target.value});
   const reviewChangeHandle = (evt: ChangeEvent<HTMLTextAreaElement>) => setFormData({...formData, reviewText: evt.target.value});
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -46,35 +46,35 @@ function ReviewAdditioForm(): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
-        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={ratingChangeHandle} name="rating" value="5" id="5-stars" type="radio" required />
+        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={handleRatingChange} name="rating" value="5" id="5-stars" type="radio" required />
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={ratingChangeHandle} name="rating" value="4" id="4-stars" type="radio" />
+        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={handleRatingChange} name="rating" value="4" id="4-stars" type="radio" />
         <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={ratingChangeHandle} name="rating" value="3" id="3-stars" type="radio" />
+        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={handleRatingChange} name="rating" value="3" id="3-stars" type="radio" />
         <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={ratingChangeHandle} name="rating" value="2" id="2-stars" type="radio" />
+        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={handleRatingChange} name="rating" value="2" id="2-stars" type="radio" />
         <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={ratingChangeHandle} name="rating" value="1" id="1-star" type="radio" />
+        <input className="form__rating-input visually-hidden" disabled={formDisabled} onChange={handleRatingChange} name="rating" value="1" id="1-star" type="radio" />
         <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star" />
@@ -113,4 +113,4 @@ function ReviewAdditioForm(): JSX.Element {
   );
 }
 
-export default ReviewAdditioForm;
+export default AddReviewForm;

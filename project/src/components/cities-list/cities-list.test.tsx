@@ -6,7 +6,6 @@ import {CITIES, DEFAULT_CITY} from '../../const';
 
 const history = createMemoryHistory();
 
-// проблема
 describe('Component: CitiesList', () => {
   it('should render correctly', () => {
     render(

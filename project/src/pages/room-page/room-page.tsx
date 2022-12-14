@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
 import ReviewList from '../../components/review-list/review-list';
-import ReviewAdditioForm from '../../components/review-addition-form/review-addition-form';
+import AddReviewForm from '../../components/review-addition-form/review-addition-form';
 import {useAppDispatch} from '../../hooks';
 import {calcRatingStyle} from '../../util';
 import {useAppSelector} from '../../hooks';
@@ -139,7 +139,7 @@ function RoomPage(): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsOfCurrentOffer.length}</span></h2>
                 <ReviewList reviews={reviewsOfCurrentOffer} />
-                { authorizationStatus === AuthorizationStatus.Auth ? <ReviewAdditioForm /> : '' }
+                { authorizationStatus === AuthorizationStatus.Auth ? <AddReviewForm /> : '' }
               </section>
             </div>
           </div>
