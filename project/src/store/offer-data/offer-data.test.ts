@@ -2,7 +2,14 @@ import {offerData} from './offer-data';
 import {InitialState as OfferData} from './offer-data';
 import {fetchOffersAction, fetchNearOffersAction, fetchFavoriteOffersAction, fetchOfferInfo, fetchReviewsAction, addReviewAction, /* setOfferStatusAction */} from '../api-actions';
 import {makeFakeOffers, makeFakeReviews, fakeOffer, fakeReview} from '../../util/mocks';
-import {MAX_COUNT_OF_REVIEWS} from '../../const';
+import {MAX_COUNT_OF_REVIEWS, MAX_COUNT_OF_OFFER_IMAGES} from '../../const';
+
+const offers = makeFakeOffers();
+const nearOffers = makeFakeOffers();
+const favoriteOffers = makeFakeOffers();
+const reviews = makeFakeReviews();
+const currentOffer = fakeOffer;
+const newReview = fakeReview;
 
 const initialState = {
   offers: [],
@@ -14,12 +21,6 @@ const initialState = {
   hasError: false
 };
 
-const offers = makeFakeOffers();
-const nearOffers = makeFakeOffers();
-const favoriteOffers = makeFakeOffers();
-const reviews = makeFakeReviews();
-const currentOffer = fakeOffer;
-const newReview = fakeReview;
 
 describe('Reducer: offerData', () => {
   let state: OfferData;
@@ -53,10 +54,11 @@ describe('Reducer: offerData', () => {
   });
 
   it('should update current offer by load current offer', () => {
-    state = initialState;
+    state = {...initialState, currentOffer: currentOffer};
+    const slicedImages = currentOffer.images.length > MAX_COUNT_OF_OFFER_IMAGES ? currentOffer.images.slice(0, MAX_COUNT_OF_OFFER_IMAGES) : currentOffer.images;
 
     expect(offerData.reducer(state, {type: fetchOfferInfo.fulfilled.type, payload: currentOffer}))
-      .toEqual({...state, currentOffer: currentOffer, hasError: false});
+      .toEqual({...state, currentOffer: {...currentOffer, images: slicedImages}, hasError: false});
   });
 
   it('should update reviews by load reviews', () => {
